@@ -1,0 +1,1843 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0052)http://avdi.org/talks/confident-code-railsconf-2011/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Confident Code</title>
+
+<meta name="generator" content="Org-mode">
+<meta name="generated" content="2011-05-17 14:37:06 EDT">
+<meta name="author" content="Avdi Grimm (@avdi)">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<!-- configuration parameters --> <meta name="defaultView" content="slideshow"> <meta name="controlVis" content="hidden"> <!-- style sheet links --> <link rel="stylesheet" href="./Confident Code_files/slides.css" type="text/css" media="screen" id="slideProj"> <link rel="stylesheet" href="./Confident Code_files/outline.css" type="text/css" media="screen" id="outlineStyle" disabled=""> <link rel="stylesheet" href="./Confident Code_files/print.css" type="text/css" media="print" id="slidePrint"> <link rel="stylesheet" href="./Confident Code_files/opera.css" type="text/css" media="projection" id="operaFix"><!-- S5 JS --> <script src="./Confident Code_files/jquery.js" type="text/javascript"></script> <script src="./Confident Code_files/org-slides.js" type="text/javascript"></script> <script src="./Confident Code_files/slides.js" type="text/javascript"></script> <script src="./Confident Code_files/style.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+<style media="screen, projection" id="s5ss">body {font-size: 15px !important;}</style></head>
+<body>
+<div id="content">
+
+<div class="layout">
+<div id="controls"><form action="http://avdi.org/talks/confident-code-railsconf-2011/#" id="controlForm" onmouseover="showHide(&#39;s&#39;);" onmouseout="showHide(&#39;h&#39;);"><div id="navLinks" class="hideme"><a accesskey="t" id="toggle" href="javascript:toggle();">Ø</a><a accesskey="z" id="prev" href="javascript:go(-1);">«</a><a accesskey="x" id="next" href="javascript:go(1);">»</a><div id="navList"><select id="jumplist" onchange="go(&#39;j&#39;);"><option value="0">0 : </option><option value="1">1 : What this talk is about </option><option value="2">2 : What is confident code? </option><option value="3">3 : Timid Code </option><option value="4">4 : Poor Storytelling </option><option value="5">5 : Timid Code </option><option value="6">6 : Timid Code </option><option value="7">7 : Confident Code </option><option value="8">8 : Confident Code </option><option value="9">9 : Source Code </option><option value="10">10 : Cowsay: ASCII art animals </option><option value="11">11 : Cowsay Options </option><option value="12">12 : Installing Cowsay </option><option value="13">13 : Cowsay.rb </option><option value="14">14 : Cowsay.rb </option><option value="15">15 : Timid Code Structure </option><option value="16">16 : Timid Code Structure (Annotated) </option><option value="17">17 : The Narrative structure </option><option value="18">18 : Step 1: Gather Input </option><option value="19">19 : On Duck Typing </option><option value="20">20 : The Switch (case) Smell </option><option value="21">21 : Dealing with Uncertain Input </option><option value="22">22 : When in doubt, coerce </option><option value="23">23 : Array() </option><option value="24">24 : Prefer Array() to to_a </option><option value="25">25 : Using Array() </option><option value="26">26 : Gluing feathers to a pig </option><option value="27">27 : Decorator Candidate </option><option value="28">28 : The WithPath Decorator </option><option value="29">29 : Using the Decorator </option><option value="30">30 : Other Ways to Massage Objects </option><option value="31">31 : Reject Unexpected Values </option><option value="32">32 : Assertive Code </option><option value="33">33 : Basic Precondition </option><option value="34">34 : Assertion Method </option><option value="35">35 : Assertion Notes </option><option value="36">36 : More on Assertions </option><option value="37">37 : Ignore Unnacceptable Values </option><option value="38">38 : Guard Clause </option><option value="39">39 : Special Case Pattern </option><option value="40">40 : &amp;&amp; and try() </option><option value="41">41 : Substitute Special Case for nil </option><option value="42">42 : Null Object </option><option value="43">43 : A Basic Null Object </option><option value="44">44 : The Black Hole Null Object </option><option value="45">45 : Using the Null Object </option><option value="46">46 : Zero Tolerance for nil </option><option value="47">47 : Where'd that nil come from?! </option><option value="48">48 : Eliminating nil </option><option value="49">49 : Use Hash#fetch when appropriate </option><option value="50">50 : #fetch as an assertion </option><option value="51">51 : #fetch for defaults </option><option value="52">52 : Don't use nil as a default </option><option value="53">53 : Symbol Default </option><option value="54">54 : Null Object Default </option><option value="55">55 : Null Object with Origin </option><option value="56">56 : Null Object with Origin </option><option value="57">57 : Step 2: Perform Work </option><option value="58">58 : PIE Principle </option><option value="59">59 : Conditionals for Business Logic </option><option value="60">60 : Conditionals </option><option value="61">61 : Confident Styles of Work </option><option value="62">62 : Confident Style: Chaining Work </option><option value="63">63 : Confident Style: Iteration </option><option value="64">64 : Iterative Style </option><option value="65">65 : Step 3: Deliver Results </option><option value="66">66 : Don't return nil </option><option value="67">67 : Step 4: Handle Failure </option><option value="68">68 : The Ruby Exception Handling Idiom </option><option value="69">69 : Extract error handling methods </option><option value="70">70 : Bouncer Method </option><option value="71">71 : Bouncer Method in Use </option><option value="72">72 : begin...rescue...end </option><option value="73">73 : Checked Method </option><option value="74">74 : Checked Method in Use </option><option value="75">75 : The Final Product </option><option value="76">76 : Observations on the Final Product </option><option value="77">77 : Why Confident Code? </option><option value="78">78 : Review </option><option value="79">79 : Thank You </option></select></div></div></form></div>
+<div id="currentSlide" style="visibility: visible;"><span id="csHere">11</span> <span id="csSep">/</span> <span id="csTotal">79</span></div>
+<div id="header"></div>
+<div id="footer"></div>
+</div>
+<div class="presentation">
+<div class="slide front" id="slide0" style="visibility: hidden;">
+  <div id="front-logo"></div>
+<h1 class="front">Confident Code</h1><h3>Avdi Grimm (@avdi)</h3></div>
+
+
+
+
+
+
+<div id="slide1" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>What this talk is about </span></h1>
+<div class="outline-text-2" id="text-1">
+
+<ul>
+<li id="sec-1_1">A style of Code Construction <br>
+<img src="./Confident Code_files/code-complete.jpg" alt="code-complete.jpg">
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide2" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>What is confident code? </span></h1>
+<div class="outline-text-2" id="text-2">
+
+<p>The opposite of timid code. Duh.
+</p></div>
+
+</div>
+
+<div id="slide3" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Timid Code </span></h1>
+<div class="outline-text-2" id="text-3">
+
+<p>First, a story…
+</p></div>
+
+</div>
+
+<div id="slide4" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Poor Storytelling </span></h1>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li id="sec-4_1">Tangents <br>
+</li>
+</ul>
+<ul>
+<li id="sec-4_2">Digressions <br>
+</li>
+</ul>
+<ul>
+<li id="sec-4_3">Lack of certainty <br>
+</li>
+</ul>
+<ul>
+<li id="sec-4_4">…code can have these qualities as well. <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide5" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Timid Code </span></h1>
+<div class="outline-text-2" id="text-5">
+
+<p><img src="./Confident Code_files/zoe.jpg" alt="zoe.jpg">
+</p></div>
+
+</div>
+
+<div id="slide6" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Timid Code </span></h1>
+<div class="outline-text-2" id="text-6">
+
+<ul>
+<li id="sec-6_1">Lives in fear <br>
+
+</li>
+</ul>
+<ul>
+<li id="sec-6_2">Uncertain <br>
+</li>
+</ul>
+<ul>
+<li id="sec-6_3">Prone to digressions <br>
+</li>
+</ul>
+<ul>
+<li id="sec-6_4">Constantly second-guessing itself <br>
+
+</li>
+</ul>
+<ul>
+<li id="sec-6_5">Randomly mixes input gathering, error handling, and business logic <br>
+</li>
+</ul>
+<ul>
+<li id="sec-6_6">Imposes cognitive load on the reader <br>
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide7" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Confident Code </span></h1>
+<div class="outline-text-2" id="text-7">
+
+<p><img src="./Confident Code_files/sandy.jpg" alt="sandy.jpg">
+</p></div>
+
+</div>
+
+<div id="slide8" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Confident Code </span></h1>
+<div class="outline-text-2" id="text-8">
+
+<ul>
+<li id="sec-8_1">Says exactly what it intends to do <br>
+</li>
+</ul>
+<ul>
+<li id="sec-8_2">No provisos or digressions <br>
+</li>
+</ul>
+<ul>
+<li id="sec-8_3">Has a consistent narrative structure <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide9" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Source Code </span></h1>
+<div class="outline-text-2" id="text-9">
+
+<ul>
+<li id="sec-9_1">cowsay.rb <br>
+</li>
+</ul>
+<ul>
+<li id="sec-9_2">An interface to the "cowsay" program <br>
+</li>
+</ul>
+<ul>
+<li id="sec-9_3"><a href="http://github.com/avdi/cowsay" rel="external" target="_blank" class="external">http://github.com/avdi/cowsay</a> <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide10" class="outline-2 slide" style="visibility: hidden;">
+<h1><span>Cowsay: ASCII art animals </span></h1>
+<div class="outline-text-2" id="text-10">
+
+
+
+
+<pre class="example">$ echo "Mooo" | cowsay
+ ______
+&lt; Mooo &gt;
+ ------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide11" class="outline-2 slide" style="visibility: visible;">
+<h1><span>Cowsay Options </span></h1>
+<div class="outline-text-2" id="text-11">
+
+
+
+
+<pre class="example">$ echo "Ontogeny Recapitulates Phylogeny"
+  | cowsay -e "00"
+ __________________________________
+&lt; Ontogeny Recapitulates Phylogeny &gt;
+ ----------------------------------
+        \   ^__^
+         \  (00)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide12" class="outline-2 slide">
+<h1><span>Installing Cowsay </span></h1>
+<div class="outline-text-2" id="text-12">
+
+<ul>
+<li id="sec-12_1">Debian/Ubuntu <br>
+<pre class="example">sudo apt-get install cowsay
+</pre>
+
+</li>
+</ul>
+<ul>
+<li id="sec-12_2">Mac OS X <br>
+<pre class="example">sudo port install cowsay
+# or `cauldron stir cowsay`
+# or whatever you Mac kids are using now
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide13" class="outline-2 slide">
+<h1><span>Cowsay.rb </span></h1>
+<div class="outline-text-2" id="text-13">
+
+
+
+
+<pre class="src src-ruby">require <span style="color: #A5F26E;">'lib/cowsay'</span>
+cow = <span style="color: #8888ff; font-weight: bold;">Cowsay</span>::<span style="color: #8888ff; font-weight: bold;">Cow</span>.new
+puts cow.say <span style="color: #A5F26E;">"Baaa"</span>
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;  ______
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt; &lt; Baaa &gt;
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;  ------
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;         \   ^__^
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;          \  (oo)\_______
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;             (__)\       )\/\
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;                 ||----w |
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">&gt;&gt;                 ||     ||
+</span></pre>
+
+
+</div>
+
+</div>
+
+<div id="slide14" class="outline-2 slide">
+<h1><span>Cowsay.rb </span></h1>
+<div class="outline-text-2" id="text-14">
+
+<ul>
+<li id="sec-14_1">Contrived for the sake of example <br>
+</li>
+</ul>
+<ul>
+<li id="sec-14_2">Drawn from real <del>production code</del> crap I've written <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide15" class="outline-2 slide">
+<h1><span>Timid Code Structure </span></h1>
+<div class="outline-text-2" id="text-15">
+
+<p><img src="./Confident Code_files/timid-code-plain.png" alt="timid-code-plain.png">
+</p></div>
+
+</div>
+
+<div id="slide16" class="outline-2 slide">
+<h1><span>Timid Code Structure (Annotated) </span></h1>
+<div class="outline-text-2" id="text-16">
+
+<p><img src="./Confident Code_files/timid-code-annotated.png" alt="timid-code-annotated.png">
+</p></div>
+
+</div>
+
+<div id="slide17" class="outline-2 slide">
+<h1><span>The Narrative structure </span></h1>
+<div class="outline-text-2" id="text-17">
+
+<ol>
+<li>
+Gather input
+</li>
+<li>
+Perform work
+</li>
+<li>
+Deliver results
+</li>
+<li>
+handle failure
+</li>
+</ol>
+
+
+<p>
+In that order!
+</p></div>
+
+</div>
+
+<div id="slide18" class="outline-2 slide">
+<h1><span>Step 1: Gather Input </span></h1>
+<div class="outline-text-2" id="text-18">
+
+<ul>
+<li id="sec-18_1">To be confident, we must be sure of our inputs <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide19" class="outline-2 slide">
+<h1><span>On Duck Typing </span></h1>
+<div class="outline-text-2" id="text-19">
+
+<ul>
+<li id="sec-19_1">True duck typing is a confident style <br>
+</li>
+</ul>
+<ul>
+<li id="sec-19_2">Duck typing doesn't ask "are you a duck?" <br>
+
+
+
+<pre class="src src-ruby">object.is_a?(<span style="color: #8888ff; font-weight: bold;">String</span>)
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-19_3">Or even "can you quack?" <br>
+
+
+
+<pre class="src src-ruby">object.respond_to?(<span style="color: #6BCFF7;">:each</span>)
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-19_4">Treat the object like a duck <br>
+(If it isn't it will complain)
+</li>
+</ul>
+<ul>
+<li id="sec-19_5">Some objects need a little help discovering their duck nature <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide20" class="outline-2 slide">
+<h1><span>The Switch (<code>case</code>) Smell </span></h1>
+<div class="outline-text-2" id="text-20">
+
+<ul>
+<li id="sec-20_1">Typecasing: Code that switches on the type of an object <br>
+</li>
+</ul>
+<ul>
+<li id="sec-20_2">The opposite of duck typing <br>
+</li>
+</ul>
+<ul>
+<li id="sec-20_3">A reaction to input variance <br>
+</li>
+</ul>
+<ul>
+<li id="sec-20_4"><code>nil</code> checks are the most common typecase <br>
+</li>
+</ul>
+<ul>
+<li id="sec-20_5">It doesn't have to be this way. <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide21" class="outline-2 slide">
+<h1><span>Dealing with Uncertain Input </span></h1>
+<div class="outline-text-2" id="text-21">
+
+<ul>
+<li id="sec-21_1">Coerce <br>
+</li>
+</ul>
+<ul>
+<li id="sec-21_2">Reject <br>
+</li>
+</ul>
+<ul>
+<li id="sec-21_3">Ignore <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide22" class="outline-2 slide">
+<h1><span>When in doubt, coerce </span></h1>
+<div class="outline-text-2" id="text-22">
+
+<ul>
+<li id="sec-22_1">Use <code>#to_s</code>, <code>#to_i</code>, <code>Array()</code> liberally <br>
+</li>
+</ul>
+<ul>
+<li id="sec-22_2">Ruby standard libs do this <br>
+
+
+
+<pre class="src src-ruby">require <span style="color: #A5F26E;">'pathname'</span>
+path = <span style="color: #8888ff; font-weight: bold;">Pathname</span>(<span style="color: #A5F26E;">"/home/avdi/.emacs"</span>)
+open(path) <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; #&lt;File:/home/avdi/.emacs&gt;
+</span></pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide23" class="outline-2 slide">
+<h1><span>Array() </span></h1>
+<div class="outline-text-2" id="text-23">
+
+<ul>
+<li id="sec-23_1">The "arrayification operator" <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #8888ff; font-weight: bold;">Array</span>([1,2,3])                <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; [1, 2, 3]
+</span><span style="color: #8888ff; font-weight: bold;">Array</span>(<span style="color: #A5F26E;">"foo"</span>)                  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; ["foo"]
+</span><span style="color: #8888ff; font-weight: bold;">Array</span>(<span style="color: #D0D0F3;">nil</span>)                    <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; []
+</span>
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">Gotcha:
+</span><span style="color: #8888ff; font-weight: bold;">Array</span>(<span style="color: #A5F26E;">"foo\nbar"</span>)             <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; ["foo\n", "bar"]
+</span></pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide24" class="outline-2 slide">
+<h1><span>Prefer <code>Array()</code> to <code>to_a</code> </span></h1>
+<div class="outline-text-2" id="text-24">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #8888ff; font-weight: bold;">Object</span>.new.to_a
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; [#&lt;Object:0xb78a665c&gt;]
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">!&gt; default `to_a' will be obsolete
+</span></pre>
+
+
+
+</div>
+
+</div>
+
+<div id="slide25" class="outline-2 slide">
+<h1><span>Using Array() </span></h1>
+<div class="outline-text-2" id="text-25">
+
+<ul>
+<li id="sec-25_1">Before <br>
+
+
+
+<pre class="src src-ruby">messages = <span style="color: #CC7832; font-weight: bold;">case</span> message
+           <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #8888ff; font-weight: bold;">Array</span> <span style="color: #CC7832; font-weight: bold;">then</span> message
+           <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #D0D0F3;">nil</span> <span style="color: #CC7832; font-weight: bold;">then</span> []
+           <span style="color: #CC7832; font-weight: bold;">else</span> [message]
+           <span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-25_2">After <br>
+
+
+
+<pre class="src src-ruby">messages = <span style="color: #8888ff; font-weight: bold;">Array</span>(message)
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide26" class="outline-2 slide">
+<h1><span>Gluing feathers to a pig </span></h1>
+<div class="outline-text-2" id="text-26">
+
+<ul>
+<li id="sec-26_1">When there is no consistent interface <br>
+</li>
+</ul>
+<ul>
+<li id="sec-26_2">Decorator Pattern <br>
+</li>
+</ul>
+<ul>
+<li id="sec-26_3">Wraps an object and adds a little extra <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide27" class="outline-2 slide">
+<h1><span>Decorator Candidate </span></h1>
+<div class="outline-text-2" id="text-27">
+
+
+
+
+<pre class="src src-ruby">destination = <span style="color: #CC7832; font-weight: bold;">case</span> options[<span style="color: #6BCFF7;">:out</span>]
+              <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #D0D0F3;">nil</span>  <span style="color: #CC7832; font-weight: bold;">then</span> <span style="color: #A5F26E;">"return value"</span>
+              <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #8888ff; font-weight: bold;">File</span> <span style="color: #CC7832; font-weight: bold;">then</span> options[<span style="color: #6BCFF7;">:out</span>].path
+              <span style="color: #CC7832; font-weight: bold;">else</span> options[<span style="color: #6BCFF7;">:out</span>].inspect <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">String?
+</span>              <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #D0D0F3;">@logger</span>.info <span style="color: #A5F26E;">"Wrote to </span><span style="color: #D0D0F3;">#{destination}</span><span style="color: #A5F26E;">"</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide28" class="outline-2 slide">
+<h1><span>The WithPath Decorator </span></h1>
+<div class="outline-text-2" id="text-28">
+
+
+
+
+<pre class="src src-ruby">require <span style="color: #A5F26E;">'delegate'</span>
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">class</span> <span style="color: #8888ff; font-weight: bold;">WithPath</span> &lt; <span style="color: #8888ff; font-weight: bold;">SimpleDelegator</span>
+  <span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">path</span>
+    <span style="color: #CC7832; font-weight: bold;">case</span> __getobj__
+    <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #8888ff; font-weight: bold;">File</span> <span style="color: #CC7832; font-weight: bold;">then</span> <span style="color: #CC7832; font-weight: bold;">super</span>
+    <span style="color: #CC7832; font-weight: bold;">when</span> <span style="color: #D0D0F3;">nil</span> <span style="color: #CC7832; font-weight: bold;">then</span> <span style="color: #A5F26E;">"return value"</span>
+    <span style="color: #CC7832; font-weight: bold;">else</span> inspect
+    <span style="color: #CC7832; font-weight: bold;">end</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide29" class="outline-2 slide">
+<h1><span>Using the Decorator </span></h1>
+<div class="outline-text-2" id="text-29">
+
+
+
+
+<pre class="src src-ruby">destination = <span style="color: #8888ff; font-weight: bold;">WithPath</span>.new(options[<span style="color: #6BCFF7;">:out</span>]).path
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #D0D0F3;">@logger</span>.info <span style="color: #A5F26E;">"Wrote to </span><span style="color: #D0D0F3;">#{destination}</span><span style="color: #A5F26E;">"</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide30" class="outline-2 slide">
+<h1><span>Other Ways to Massage Objects </span></h1>
+<div class="outline-text-2" id="text-30">
+
+<ul>
+<li id="sec-30_1">Dynamically <code>#extend</code> objects <br>
+
+
+
+<pre class="src src-ruby">obj.extend(<span style="color: #8888ff; font-weight: bold;">MyMethods</span>)
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-30_2">Dynamically add methods <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">obj.foo</span>
+   <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide31" class="outline-2 slide">
+<h1><span>Reject Unexpected Values </span></h1>
+<div class="outline-text-2" id="text-31">
+
+<ul>
+<li id="sec-31_1">Not a duck. Not even a bird. <br>
+</li>
+</ul>
+<ul>
+<li id="sec-31_2">Will eventually cause an error <br>
+</li>
+</ul>
+<ul>
+<li id="sec-31_3">…but not before doing some damage <br>
+</li>
+</ul>
+<ul>
+<li id="sec-31_4">May not be clear where the error originated <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide32" class="outline-2 slide">
+<h1><span>Assertive Code </span></h1>
+<div class="outline-text-2" id="text-32">
+
+<ul>
+<li id="sec-32_1">Confident Code asserts itself <br>
+</li>
+</ul>
+<ul>
+<li id="sec-32_2">Preconditions: state your demands up-front <br>
+</li>
+</ul>
+<ul>
+<li id="sec-32_3">Part of Design by Contract <br>
+</li>
+</ul>
+<ul>
+<li id="sec-32_4">No DbC framework needed <br>
+</li>
+</ul>
+<ul>
+<li id="sec-32_5">Assertions don't have to be spelled "assert()" <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide33" class="outline-2 slide">
+<h1><span>Basic Precondition </span></h1>
+<div class="outline-text-2" id="text-33">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">say</span>(message, options={})
+  <span style="color: #CC7832; font-weight: bold;">if</span> options[<span style="color: #6BCFF7;">:cowfile</span>] &amp;&amp; options[<span style="color: #6BCFF7;">:cowfile</span>] =~ <span style="color: #A5F26E;">/^\s*$/</span>
+    <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>, <span style="color: #A5F26E;">"Cowfile cannot be blank"</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span>  <span style="color: #CC7832; font-weight: bold;">if</span> options[<span style="color: #6BCFF7;">:cowfile</span>]
+    command &lt;&lt; <span style="color: #A5F26E;">" -f </span><span style="color: #D0D0F3;">#{options[:cowfile]}</span><span style="color: #A5F26E;">"</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide34" class="outline-2 slide">
+<h1><span>Assertion Method </span></h1>
+<div class="outline-text-2" id="text-34">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">assert</span>(value, message=<span style="color: #A5F26E;">"Assertion failed"</span>)
+  <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">Exception</span>, message, caller <span style="color: #CC7832; font-weight: bold;">unless</span> value
+<span style="color: #CC7832; font-weight: bold;">end</span>
+
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span>
+options[<span style="color: #6BCFF7;">:cowfile</span>] <span style="color: #CC7832; font-weight: bold;">and</span>
+  assert(options[<span style="color: #6BCFF7;">:cowfile</span>].to_s !~ <span style="color: #A5F26E;">/^\s*$/</span>)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide35" class="outline-2 slide">
+<h1><span>Assertion Notes </span></h1>
+<div class="outline-text-2" id="text-35">
+
+<ul>
+<li id="sec-35_1"><code>Exception</code> skips default rescue <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">begin</span>
+  <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">Exception</span>, <span style="color: #A5F26E;">"Can't catch me!"</span>
+<span style="color: #CC7832; font-weight: bold;">rescue</span> <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">rescues StandardError
+</span>  puts <span style="color: #A5F26E;">"Rescued!"</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:2: Can't catch me! (Exception)
+</span></pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-35_2">Third argument to <code>raise</code> sets stack trace <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">Exception</span>, message, caller
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide36" class="outline-2 slide">
+<h1><span>More on Assertions </span></h1>
+<div class="outline-text-2" id="text-36">
+
+<ul>
+<li id="sec-36_1">Assertions are documentation <br>
+</li>
+</ul>
+<ul>
+<li id="sec-36_2">FailFast <br>
+<a href="http://github.com/avdi/failfast" rel="external" target="_blank" class="external">http://github.com/avdi/failfast</a>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide37" class="outline-2 slide">
+<h1><span>Ignore Unnacceptable Values </span></h1>
+<div class="outline-text-2" id="text-37">
+
+<ul>
+<li id="sec-37_1">Guard Clause <br>
+</li>
+</ul>
+<ul>
+<li id="sec-37_2">Special Case <br>
+</li>
+</ul>
+<ul>
+<li id="sec-37_3">Null Object <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide38" class="outline-2 slide">
+<h1><span>Guard Clause </span></h1>
+<div class="outline-text-2" id="text-38">
+
+<ul>
+<li id="sec-38_1">Short-circuit on nil message <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">say</span>(message, options={})
+  <span style="color: #CC7832; font-weight: bold;">return</span> <span style="color: #A5F26E;">""</span> <span style="color: #CC7832; font-weight: bold;">if</span> message.nil?
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-38_2">Avoids special cases later in method <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide39" class="outline-2 slide">
+<h1><span>Special Case Pattern </span></h1>
+<div class="outline-text-2" id="text-39">
+
+<ul>
+<li id="sec-39_1">Some arguments just <b>have</b> to be special <br>
+</li>
+</ul>
+<ul>
+<li id="sec-39_2">An OO way to deal with special cases <br>
+</li>
+</ul>
+<ul>
+<li id="sec-39_3">An object to represent the special case <br>
+</li>
+</ul>
+<ul>
+<li id="sec-39_4">Avoids <code>if</code>, <code>&amp;&amp;</code>, <code>try()</code> <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide40" class="outline-2 slide">
+<h1><span><code>&amp;&amp;</code> and <code>try()</code> </span></h1>
+<div class="outline-text-2" id="text-40">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">$? is either nil or a Process::Status object
+</span><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">check_child_exit_status!</span>(status=<span style="color: #D0D0F3;">$?</span>)
+  <span style="color: #CC7832; font-weight: bold;">unless</span> [0,172].include?(status &amp;&amp; status.exitstatus)
+    <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>,
+          <span style="color: #A5F26E;">"Command exited with status "</span>\
+          <span style="color: #A5F26E;">"</span><span style="color: #D0D0F3;">#{status.try(exitstatus)}</span><span style="color: #A5F26E;">"</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide41" class="outline-2 slide">
+<h1><span>Substitute Special Case for <code>nil</code> </span></h1>
+<div class="outline-text-2" id="text-41">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">$? is either nil or a Process::Status object
+</span><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">check_child_exit_status!</span>(status=<span style="color: #D0D0F3;">$?</span>)
+  status ||= <span style="color: #8888ff; font-weight: bold;">OpenStruct</span>.new(<span style="color: #6BCFF7;">:exitstatus</span> =&gt; 0)
+  <span style="color: #CC7832; font-weight: bold;">unless</span> [0,172].include?(status.exitstatus)
+    <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>,
+          <span style="color: #A5F26E;">"Command exited with status"</span>\
+          <span style="color: #A5F26E;">"</span><span style="color: #D0D0F3;">#{status.exitstatus}</span><span style="color: #A5F26E;">"</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide42" class="outline-2 slide">
+<h1><span>Null Object </span></h1>
+<div class="outline-text-2" id="text-42">
+
+<p>"A Null Object is an object with defined neutral ("null") behavior." (Wikipedia)
+</p><ul>
+<li id="sec-42_1">The special case value is usually <code>nil</code> <br>
+</li>
+</ul>
+<ul>
+<li id="sec-42_2">The special case for <code>nil</code> is usually "do nothing" <br>
+</li>
+</ul>
+<ul>
+<li id="sec-42_3">A special case of Special Case <br>
+</li>
+</ul>
+<ul>
+<li id="sec-42_4">Responds to any message with nil (or itself) <br>
+</li>
+</ul>
+<ul>
+<li id="sec-42_5">Should be in the standard library <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide43" class="outline-2 slide">
+<h1><span>A Basic Null Object </span></h1>
+<div class="outline-text-2" id="text-43">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">class</span> <span style="color: #8888ff; font-weight: bold;">NullObject</span>
+  <span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">method_missing</span>(*args, &amp;block)
+    <span style="color: #D0D0F3;">self</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+
+  <span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">nil?;</span> <span style="color: #D0D0F3;">true</span>; <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+
+<span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">Maybe</span>(value)
+  value.nil? ? <span style="color: #8888ff; font-weight: bold;">NullObject</span>.new : value
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide44" class="outline-2 slide">
+<h1><span>The Black Hole Null Object </span></h1>
+<div class="outline-text-2" id="text-44">
+
+<ul>
+<li id="sec-44_1">Returns <code>self</code> from every call <br>
+</li>
+</ul>
+<ul>
+<li id="sec-44_2">Nullifies chains of calls <br>
+
+
+
+<pre class="src src-ruby">foo = <span style="color: #D0D0F3;">nil</span>
+<span style="color: #8888ff; font-weight: bold;">Maybe</span>(foo).bar.baz + buz        <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; nil
+</span></pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide45" class="outline-2 slide">
+<h1><span>Using the Null Object </span></h1>
+<div class="outline-text-2" id="text-45">
+
+<ul>
+<li id="sec-45_1"><code>if</code> statement <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">if</span> options[<span style="color: #6BCFF7;">:out</span>]
+  options[<span style="color: #6BCFF7;">:out</span>] &lt;&lt; output
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-45_2">Null Object <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #8888ff; font-weight: bold;">Maybe</span>(options[<span style="color: #6BCFF7;">:out</span>]) &lt;&lt; output
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide46" class="outline-2 slide">
+<h1><span>Zero Tolerance for nil </span></h1>
+<div class="outline-text-2" id="text-46">
+
+<ul>
+<li id="sec-46_1"><code>nil</code> is overused in Ruby code <br>
+</li>
+</ul>
+<ul>
+<li id="sec-46_2">It means too many things <br>
+<ul>
+<li id="sec-46_2_1">Error <br>
+</li>
+</ul>
+<ul>
+<li id="sec-46_2_2">Missing Data <br>
+</li>
+</ul>
+<ul>
+<li id="sec-46_2_3">Flag for "default behavior" <br>
+</li>
+</ul>
+<ul>
+<li id="sec-46_2_4">Uninitialized variable <br>
+</li>
+</ul>
+<ul>
+<li id="sec-46_2_5">Default return value for <code>if</code>, <code>unless</code>, empty methods. <br>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="sec-46_3">Nil checks are the most common form of timid code <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide47" class="outline-2 slide">
+<h1><span>Where'd that <code>nil</code> come from?! </span></h1>
+<div class="outline-text-2" id="text-47">
+
+
+
+
+<pre class="src src-ruby">post_id = params[<span style="color: #6BCFF7;">:post_id</span>]
+post    = <span style="color: #CC7832; font-weight: bold;">if</span> params[<span style="color: #6BCFF7;">:blog</span>]
+            blog = get_blog(params[<span style="color: #6BCFF7;">:blog</span>])
+            blog.posts.find(<span style="color: #6BCFF7;">:first</span>, post_id)
+          <span style="color: #CC7832; font-weight: bold;">end</span>
+post.date     <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt;
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:4: undefined method `date' 
+</span><span style="color: #888888;">#    </span><span style="color: #B150E7; font-style: italic;">for nil:NilClass (NoMethodError)
+</span></pre>
+
+
+</div>
+
+</div>
+
+<div id="slide48" class="outline-2 slide">
+<h1><span>Eliminating <code>nil</code> </span></h1>
+<div class="outline-text-2" id="text-48">
+
+<p>Kill it with fire.
+</p></div>
+
+</div>
+
+<div id="slide49" class="outline-2 slide">
+<h1><span>Use <code>Hash#fetch</code> when appropriate </span></h1>
+<div class="outline-text-2" id="text-49">
+
+
+
+
+<pre class="src src-ruby">collection.fetch(key) { fallback_action }
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide50" class="outline-2 slide">
+<h1><span><code>#fetch</code> as an assertion </span></h1>
+<div class="outline-text-2" id="text-50">
+
+<ul>
+<li id="sec-50_1">Default error <br>
+
+
+
+<pre class="src src-ruby">opt = {}.fetch(<span style="color: #6BCFF7;">:required_opt</span>)
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:1:in `fetch': key not found (IndexError)
+</span></pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-50_2">Custom error <br>
+
+
+
+<pre class="src src-ruby">opt = {}.fetch(<span style="color: #6BCFF7;">:required_opt</span>) <span style="color: #CC7832; font-weight: bold;">do</span>
+  <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>, <span style="color: #A5F26E;">"Missing option!"</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:2: Missing option! (ArgumentError)
+</span></pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide51" class="outline-2 slide">
+<h1><span><code>#fetch</code> for defaults </span></h1>
+<div class="outline-text-2" id="text-51">
+
+<ul>
+<li id="sec-51_1">Using <code>||</code> <br>
+
+
+
+<pre class="src src-ruby">width = options[<span style="color: #6BCFF7;">:width</span>] || 40
+command &lt;&lt; <span style="color: #A5F26E;">" -W </span><span style="color: #D0D0F3;">#{width}</span><span style="color: #A5F26E;">"</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-51_2">Using <code>#fetch</code> <br>
+
+
+
+<pre class="src src-ruby">width = options.fetch(<span style="color: #6BCFF7;">:width</span>) {40}
+command &lt;&lt; <span style="color: #A5F26E;">" -W </span><span style="color: #D0D0F3;">#{width}</span><span style="color: #A5F26E;">"</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-51_3">A more explicit default <br>
+</li>
+</ul>
+<ul>
+<li id="sec-51_4">One less conditional <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide52" class="outline-2 slide">
+<h1><span>Don't use nil as a default </span></h1>
+<div class="outline-text-2" id="text-52">
+
+<ul>
+<li id="sec-52_1">Where did that <code>nil</code> come from? <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #D0D0F3;">@logger</span> = options[<span style="color: #6BCFF7;">:logger</span>]
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #D0D0F3;">@logger</span>.info <span style="color: #A5F26E;">"Something happened"</span> <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt;
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:3: undefined method `info' for
+</span><span style="color: #888888;">#    </span><span style="color: #B150E7; font-style: italic;">nil:NilClass (NoMethodError)
+</span></pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide53" class="outline-2 slide">
+<h1><span>Symbol Default </span></h1>
+<div class="outline-text-2" id="text-53">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #D0D0F3;">@logger</span> = options.fetch(<span style="color: #6BCFF7;">:logger</span>){<span style="color: #6BCFF7;">:no_logger_set</span>}
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #D0D0F3;">@logger</span>.info <span style="color: #A5F26E;">"Something happened"</span> <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt;
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">~&gt; -:3: undefined method `info' for
+</span><span style="color: #888888;">#    </span><span style="color: #B150E7; font-style: italic;">:no_logger_set:Symbol (NoMethodError)
+</span></pre>
+
+
+</div>
+
+</div>
+
+<div id="slide54" class="outline-2 slide">
+<h1><span>Null Object Default </span></h1>
+<div class="outline-text-2" id="text-54">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">initialize</span>(logger=<span style="color: #8888ff; font-weight: bold;">NullObject</span>.new)
+  <span style="color: #D0D0F3;">@logger</span> = logger
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide55" class="outline-2 slide">
+<h1><span>Null Object with Origin </span></h1>
+<div class="outline-text-2" id="text-55">
+
+
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">class</span> <span style="color: #8888ff; font-weight: bold;">NullObject</span>
+  <span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">initialize</span>
+    <span style="color: #D0D0F3;">@origin</span> = caller.first
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+
+<pre class="example">nil
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide56" class="outline-2 slide">
+<h1><span>Null Object with Origin </span></h1>
+<div class="outline-text-2" id="text-56">
+
+
+
+
+<pre class="src src-ruby">foo = <span style="color: #8888ff; font-weight: bold;">NullObject</span>.new
+bar = foo.bar
+baz = bar.baz
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">Now let's see where that nil originated
+</span>baz
+</pre>
+
+
+
+<pre class="example">#&lt;NullObject:0x7fcace309800 @origin="(irb):68:in `new'"&gt;
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide57" class="outline-2 slide">
+<h1><span>Step 2: Perform Work </span></h1>
+<div class="outline-text-2" id="text-57">
+
+<ul>
+<li id="sec-57_1">Keep the focus on the work <br>
+</li>
+</ul>
+<ul>
+<li id="sec-57_2">Avoid digressions for error/input handling <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide58" class="outline-2 slide">
+<h1><span>PIE Principle </span></h1>
+<div class="outline-text-2" id="text-58">
+
+<ul>
+<li id="sec-58_1">Program Intently and Expressively <br>
+<img src="./Confident Code_files/pad.jpg" alt="pad.jpg">
+</li>
+</ul>
+<ul>
+<li id="sec-58_2">Say what you mean! <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide59" class="outline-2 slide">
+<h1><span>Conditionals for Business Logic </span></h1>
+<div class="outline-text-2" id="text-59">
+
+<ul>
+<li id="sec-59_1">Conditionals give you more to think about <br>
+</li>
+</ul>
+<ul>
+<li id="sec-59_2">Reserve conditionals for business logic <br>
+</li>
+</ul>
+<ul>
+<li id="sec-59_3">Minimize conditionals for error, input handling <br>
+</li>
+</ul>
+<ul>
+<li id="sec-59_4">Isolate error/input handling from program flow <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide60" class="outline-2 slide">
+<h1><span>Conditionals </span></h1>
+<div class="outline-text-2" id="text-60">
+
+<ul>
+<li id="sec-60_1">Business logic <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">if</span> post.published?
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-60_2">Business logic? <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">if</span> post
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide61" class="outline-2 slide">
+<h1><span>Confident Styles of Work </span></h1>
+<div class="outline-text-2" id="text-61">
+
+</div>
+
+</div>
+
+<div id="slide62" class="outline-2 slide">
+<h1><span>Confident Style: Chaining Work </span></h1>
+<div class="outline-text-2" id="text-62">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">slug</span>(text)
+  <span style="color: #8888ff; font-weight: bold;">Maybe</span>(text).downcase.strip.tr_s(<span style="color: #A5F26E;">'^a-z0-9'</span>, <span style="color: #A5F26E;">'-'</span>)
+<span style="color: #CC7832; font-weight: bold;">end</span>
+
+slug(<span style="color: #A5F26E;">"Confident Code"</span>) <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; "confident-code"
+</span>slug(<span style="color: #D0D0F3;">nil</span>)              <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; #&lt;NullObject:0xb780863c&gt;
+</span></pre>
+
+
+</div>
+
+</div>
+
+<div id="slide63" class="outline-2 slide">
+<h1><span>Confident Style: Iteration </span></h1>
+<div class="outline-text-2" id="text-63">
+
+<ul>
+<li id="sec-63_1">As exemplified by jQuery <br>
+
+
+
+<pre class="src src-js"><span style="color: #888888;">// </span><span style="color: #B150E7; font-style: italic;">From "jQuery in Action"
+</span>$(<span style="color: #A5F26E;">"div.notLongForThisWorld"</span>).fadeOut().
+    addClass(<span style="color: #A5F26E;">"removed"</span>);
+</pre>
+
+
+</li>
+</ul>
+<ul>
+<li id="sec-63_2">Single object operations are implicitly one-or-error <br>
+</li>
+</ul>
+<ul>
+<li id="sec-63_3">Iteration is implicitly 0-or-more <br>
+</li>
+</ul>
+<ul>
+<li id="sec-63_4">Chains of enumerable operations are self-nullifying <br>
+</li>
+</ul>
+<ul>
+<li id="sec-63_5"><code>Cowsay#say</code> uses an iterative style… <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide64" class="outline-2 slide">
+<h1><span>Iterative Style </span></h1>
+<div class="outline-text-2" id="text-64">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">say</span>(message, options={})
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span>  messages = <span style="color: #8888ff; font-weight: bold;">Array</span>(message)
+  message.map { |message|
+    <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span>  }
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+
+cow.say([]) <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">=&gt; ""
+</span></pre>
+
+
+</div>
+
+</div>
+
+<div id="slide65" class="outline-2 slide">
+<h1><span>Step 3: Deliver Results </span></h1>
+<div class="outline-text-2" id="text-65">
+
+</div>
+
+</div>
+
+<div id="slide66" class="outline-2 slide">
+<h1><span>Don't return <code>nil</code> </span></h1>
+<div class="outline-text-2" id="text-66">
+
+<ul>
+<li id="sec-66_1">Help your callers be confident <br>
+</li>
+</ul>
+<ul>
+<li id="sec-66_2">Return a Special Case or Null Object <br>
+</li>
+</ul>
+<ul>
+<li id="sec-66_3">Or raise an error <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide67" class="outline-2 slide">
+<h1><span>Step 4: Handle Failure </span></h1>
+<div class="outline-text-2" id="text-67">
+
+<ul>
+<li id="sec-67_1">Put the happy path first <br>
+</li>
+</ul>
+<ul>
+<li id="sec-67_2">Put error-handling at the end <br>
+</li>
+</ul>
+<ul>
+<li id="sec-67_3">Or in other methods. <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide68" class="outline-2 slide">
+<h1><span>The Ruby Exception Handling Idiom </span></h1>
+<div class="outline-text-2" id="text-68">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">foo</span>
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">rescue</span> =&gt; error <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">--- business/failure divider ---
+</span>  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+<ul>
+<li id="sec-68_1">Neatly divides method into "work" and "error handling" <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide69" class="outline-2 slide">
+<h1><span>Extract error handling methods </span></h1>
+<div class="outline-text-2" id="text-69">
+
+<ul>
+<li id="sec-69_1">Bouncer Method <br>
+</li>
+</ul>
+<ul>
+<li id="sec-69_2">Checked Method <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide70" class="outline-2 slide">
+<h1><span>Bouncer Method </span></h1>
+<div class="outline-text-2" id="text-70">
+
+<ul>
+<li id="sec-70_1">Method whose job is to raise or do nothing <br>
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">check_child_exit_status</span>
+  result = <span style="color: #CC7832; font-weight: bold;">yield</span>
+  status = <span style="color: #D0D0F3;">$?</span> || <span style="color: #8888ff; font-weight: bold;">OpenStruct</span>.new(<span style="color: #6BCFF7;">:exitstatus</span> =&gt; 0)
+  <span style="color: #CC7832; font-weight: bold;">unless</span> [0,172].include?(status.exitstatus)
+    <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>,
+          <span style="color: #A5F26E;">"Command exited with status"</span>\
+          <span style="color: #A5F26E;">"</span><span style="color: #D0D0F3;">#{status.exitstatus}</span><span style="color: #A5F26E;">"</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+  result
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide71" class="outline-2 slide">
+<h1><span>Bouncer Method in Use </span></h1>
+<div class="outline-text-2" id="text-71">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">Before:
+</span><span style="color: #D0D0F3;">@io_class</span>.popen(command, <span style="color: #A5F26E;">"w+"</span>) <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">if</span> <span style="color: #D0D0F3;">$?</span> &amp;&amp; ![0,172].include?(<span style="color: #D0D0F3;">$?</span>.exitstatus)
+  <span style="color: #CC7832; font-weight: bold;">raise</span> <span style="color: #8888ff; font-weight: bold;">ArgumentError</span>,
+        <span style="color: #A5F26E;">"Command exited with status </span><span style="color: #D0D0F3;">#{$?.exitstatus.to_s}</span><span style="color: #A5F26E;">"</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+
+<span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">After:
+</span>check_child_exit_status {
+  <span style="color: #D0D0F3;">@io_class</span>.popen(command, <span style="color: #A5F26E;">"w+"</span>) <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span>}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide72" class="outline-2 slide">
+<h1><span><code>begin...rescue...end</code> </span></h1>
+<div class="outline-text-2" id="text-72">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #D0D0F3;">@io_class</span>.popen(command, <span style="color: #A5F26E;">"w+"</span>) <span style="color: #CC7832; font-weight: bold;">do</span> |process|
+  results &lt;&lt; <span style="color: #CC7832; font-weight: bold;">begin</span>
+               process.write(message)
+               process.close_write
+               result = process.read
+             <span style="color: #CC7832; font-weight: bold;">rescue</span> <span style="color: #8888ff; font-weight: bold;">Errno</span>::<span style="color: #8888ff; font-weight: bold;">EPIPE</span>
+               message
+             <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="slide73" class="outline-2 slide">
+<h1><span>Checked Method </span></h1>
+<div class="outline-text-2" id="text-73">
+
+
+
+
+<pre class="src src-ruby"><span style="color: #CC7832; font-weight: bold;">def</span> <span style="color: #E8BF6A; font-weight: bold;">checked_popen</span>(command, mode, fail_action)
+  check_child_exit_status <span style="color: #CC7832; font-weight: bold;">do</span>
+    <span style="color: #D0D0F3;">@io_class</span>.popen(command, mode) <span style="color: #CC7832; font-weight: bold;">do</span> |process|
+      <span style="color: #CC7832; font-weight: bold;">yield</span>(process)
+    <span style="color: #CC7832; font-weight: bold;">end</span>
+  <span style="color: #CC7832; font-weight: bold;">end</span>
+<span style="color: #CC7832; font-weight: bold;">rescue</span> <span style="color: #8888ff; font-weight: bold;">Errno</span>::<span style="color: #8888ff; font-weight: bold;">EPIPE</span>
+  fail_action.call
+<span style="color: #CC7832; font-weight: bold;">end</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide74" class="outline-2 slide">
+<h1><span>Checked Method in Use </span></h1>
+<div class="outline-text-2" id="text-74">
+
+
+
+
+<pre class="src src-ruby">checked_popen(command, <span style="color: #A5F26E;">"w+"</span>, lambda{message}) <span style="color: #CC7832; font-weight: bold;">do</span> 
+  |process|
+  <span style="color: #888888;"># </span><span style="color: #B150E7; font-style: italic;">...
+</span><span style="color: #CC7832; font-weight: bold;">end</span>
+
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="slide75" class="outline-2 slide">
+<h1><span>The Final Product </span></h1>
+<div class="outline-text-2" id="text-75">
+
+<p><img src="./Confident Code_files/confident-code-annotated.png" alt="confident-code-annotated.png">
+</p></div>
+
+</div>
+
+<div id="slide76" class="outline-2 slide">
+<h1><span>Observations on the Final Product </span></h1>
+<div class="outline-text-2" id="text-76">
+
+<ul>
+<li id="sec-76_1">It has a coherent narrative structure <br>
+</li>
+</ul>
+<ul>
+<li id="sec-76_2">It has lower complexity <br>
+</li>
+</ul>
+<ul>
+<li id="sec-76_3">It's not necessarily shorter <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide77" class="outline-2 slide">
+<h1><span>Why Confident Code? </span></h1>
+<div class="outline-text-2" id="text-77">
+
+<ul>
+<li id="sec-77_1">Fewer paths == fewer bugs <br>
+</li>
+</ul>
+<ul>
+<li id="sec-77_2">Easier to debug <br>
+</li>
+</ul>
+<ul>
+<li id="sec-77_3">Self-documenting <br>
+"Write code for people first, the computer second"
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide78" class="outline-2 slide">
+<h1><span>Review </span></h1>
+<div class="outline-text-2" id="text-78">
+
+<ul>
+<li id="sec-78_1">A style, not a set of techniques <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_2">Consistent narrative structure <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_3">Handle input, perform work, deliver output, handle failure. <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_4">PIE: Program Intently and Expressively <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_5">Avoid digressions <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_6">State your demands up front <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_7">Terminate nils with extreme prejudice <br>
+</li>
+</ul>
+<ul>
+<li id="sec-78_8">Isolate error handling from the main flow <br>
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="slide79" class="outline-2 slide">
+<h1><span>Thank You </span></h1>
+<div class="outline-text-2" id="text-79">
+
+<p><img src="./Confident Code_files/exceptional-ruby-cover-small.png" style="float:right" alt="exceptional-ruby-cover-small.png">
+</p><ul>
+<li>
+Book!
+<ul>
+<li>
+ExceptionalRuby.com
+</li>
+<li>
+25% off: <code>RAILSCONF11</code>
+</li>
+</ul>
+</li>
+<li>
+Rate!
+<ul>
+<li>
+<a href="http://spkr8.com/t/7473" rel="external" target="_blank" class="external">http://spkr8.com/t/7473</a>
+</li>
+</ul>
+</li>
+<li>
+Contact!
+<ul>
+<li>
+avdi.org / @avdi
+</li>
+</ul>
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+</body></html>

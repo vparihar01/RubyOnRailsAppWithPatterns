@@ -1,0 +1,12 @@
+%h3 Convertors
+=form_tag('/converts/html2markdown'  ,:class => "form-horizontal", :multipart => true) do
+  .control-group
+    %label.control-label{:for => "inputFile"} Upload Html
+    .controls
+      = file_field_tag "file", :accept => 'text/html'
+  .control-group
+    .controls
+      %button.btn{:type => "submit"} Sign in
+
+
+

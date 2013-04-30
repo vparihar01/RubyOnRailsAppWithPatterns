@@ -1,6 +1,14 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.13'
-gem 'sqlite3'
+gem 'mysql2'
+gem 'annotate'
+gem 'markdown-rails'
+gem 'reverse_markdown'
+gem 'redcarpet', '1.17.2'
+gem 'gollum'
+gem 'albino'
+gem 'nokogiri'
+gem "html_massage", "~> 0.2.1"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -25,3 +33,5 @@ gem "quiet_assets", ">= 1.0.2", :group => :development
 gem "figaro", ">= 0.6.3"
 gem "better_errors", ">= 0.7.2", :group => :development
 gem "binding_of_caller", ">= 0.7.1", :group => :development, :platforms => [:mri_19, :rbx]
+gem 'sextant', :group => :development
+gem 'zeus', :group => :development

@@ -14,3 +14,10 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+.DS_Store
+.idea/.generators
+.idea/.name
+.idea/.rakeTasks
+.idea/workspace.xml
+.idea/misc.xml
+.idea/RubyOnRailsAppWithPatterns.iml

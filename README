@@ -17,3 +17,4 @@ Preferences:
 ________________________
 
 License
+Haml::Template.options[:format] = :html5

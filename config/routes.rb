@@ -5,4 +5,7 @@ Rails3BootstrapDeviseCancan::Application.routes.draw do
   root :to => "home#index"
   devise_for :users
   resources :users
+  resources :converts do
+    post "html2markdown" ,:on => :collection
+  end
 end
