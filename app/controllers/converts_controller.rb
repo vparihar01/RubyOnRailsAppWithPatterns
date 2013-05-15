@@ -21,7 +21,6 @@ class ConvertsController < ApplicationController
     logger.info "#############222########### #{file.inspect}"
     FileUtils.cp tmp.path, file
     @converted_markdown = ReverseMarkdown.parse_string(File.read(file))
-    @converted_markdown = HtmlMassage.html(File.read(file))
 
     puts @converted_markdown.inspect
     logger.info "######################## #{@converted_markdown.inspect}"

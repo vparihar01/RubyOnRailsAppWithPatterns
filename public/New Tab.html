@@ -1,19 +1,69 @@
 <html>
 <head>
-	<script src="md.min.js"></script>
-	<script>
-	  var markdown = md(document.querySelector('#container'))
-	  console.log(markdown)
-	</script>
+    <script src="md.min.js"></script>
+    <script>
+        var markdown = md(document.querySelector('#container'))
+        console.log(markdown)
+    </script>
 </head>
- <body>
-	<div class="post-8353 post type-post status-publish format-standard hentry category-iptables category-linux category-linux-distribution category-linux-embedded-devices category-linux-laptop tag-etcsysconfigiptables tag-varlogmessages tag-centos-iptables-rules-examples tag-debian-iptables-rules-examples tag-enterprise-linux tag-fedora-iptables-rules-examples tag-firewall-iptables tag-iptables-command tag-iptables-rules-example tag-iptables-rules-examples tag-kernel-modules tag-linux-distro tag-linux-kernel tag-netfilter tag-rhel-iptables-rules-examples tag-slackware-iptables-rules-examples tag-ubuntu-iptables-rules-examples post_box top" id="post-8353"><div class="headline_area"><h1 class="entry-title">Linux: 20 Iptables Examples For New SysAdmins</h1><p class="headline_meta">by <span class="author vcard"><a href="http://www.cyberciti.biz/tips/about-us" rel="author" class="url fn">nixCraft</a></span> on <abbr class="published" title="2011-12-13">December 13, 2011</abbr> · <span><a href="http://www.cyberciti.biz/tips/linux-iptables-examples.html#comments" rel="nofollow">52 comments</a></span>· <span>Last updated <abbr class="updated" title="2012-03-20">March 20, 2012</abbr><span></span></span></p></div><div class="format_text entry-content"><div style="float:right;margin-top:0px;margin-left:5px;"><a href="http://www.cyberciti.biz/tips/category/iptables" title="See all Firewall related tips/articles"><img src="http://files.cyberciti.biz/cbzcache/3rdparty/firewall.png" border="0"></a></div><p><span class="drop_cap">L</span>inux comes with a host based firewall called Netfilter. According to the official project site:</p><blockquote><p>netfilter is a set of hooks inside the Linux kernel that allows kernel modules to register callback functions with the network stack. A registered callback function is then called back for every packet that traverses the respective hook within the network stack.</p></blockquote><p>This Linux based firewall is controlled by the program called iptables to handles filtering for IPv4, and ip6tables handles filtering for IPv6. I strongly recommend that you first read our <a href="http://www.cyberciti.biz/faq/rhel-fedorta-linux-iptables-firewall-configuration-tutorial/">quick tutorial that explains how to configure a host-based firewall called Netfilter</a> (iptables) under CentOS / RHEL / Fedora / Redhat Enterprise Linux. This post list most common iptables solutions required by a new Linux user to secure his or her Linux operating system from intruders.<br> <span id="more-8353"></span></p><div style="float:right;margin-top:0px;margin-left:5px;"><a href="http://www.cyberciti.biz/tips/category/linux" title="See all GNU/Linux related tips/articles"><img src="http://files.cyberciti.biz/cbzcache/3rdparty/linux-logo.png" border="0"></a></div><h2>IPTABLES Rules Example</h2><ul><li>Most of the actions listed in this post are written with the assumption that they will be executed by the root user running the bash or any other modern shell. Do not type commands on remote system as it will disconnect your access.</li><li>For demonstration purpose I've used RHEL 6.x, but the following command should work with any modern Linux distro.</li><li>This is NOT a tutorial on how to set iptables. See <a href="http://www.cyberciti.biz/faq/rhel-fedorta-linux-iptables-firewall-configuration-tutorial/">tutorial here</a>. It is a quick cheat sheet to common iptables commands.</li></ul><h2>#1: Displaying the Status of Your Firewall</h2><p>Type the following command as root:<br> <code># iptables -L -n -v</code><br> Sample outputs:</p><pre>Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+<body>
+<div id="container">
+
+
+<div class="headline_area"><h1 class="entry-title">Linux: 20 Iptables Examples For New SysAdmins</h1>
+
+    <p class="headline_meta">by <span class="author vcard"><a href="http://www.cyberciti.biz/tips/about-us"
+                                                              rel="author" class="url fn">nixCraft</a></span> on
+        <abbr class="published" title="2011-12-13">December 13, 2011</abbr> · <span><a
+                href="http://www.cyberciti.biz/tips/linux-iptables-examples.html#comments" rel="nofollow">52
+            comments</a></span>· <span>Last updated <abbr class="updated" title="2012-03-20">March 20,
+            2012</abbr><span></span></span></p></div>
+<div class="format_text entry-content">
+<div style="float:right;margin-top:0px;margin-left:5px;"><a
+        href="http://www.cyberciti.biz/tips/category/iptables"
+        title="See all Firewall related tips/articles"><img
+        src="http://files.cyberciti.biz/cbzcache/3rdparty/firewall.png" border="0"></a></div>
+<p><span class="drop_cap">L</span>inux comes with a host based firewall called Netfilter. According to the
+    official project site:</p>
+<blockquote><p>netfilter is a set of hooks inside the Linux kernel that allows kernel modules to register
+    callback functions with the network stack. A registered callback function is then called back for every
+    packet that traverses the respective hook within the network stack.</p></blockquote>
+<p>This Linux based firewall is controlled by the program called iptables to handles filtering for IPv4, and
+    ip6tables handles filtering for IPv6. I strongly recommend that you first read our <a
+            href="http://www.cyberciti.biz/faq/rhel-fedorta-linux-iptables-firewall-configuration-tutorial/">quick
+        tutorial that explains how to configure a host-based firewall called Netfilter</a> (iptables) under
+    CentOS / RHEL / Fedora / Redhat Enterprise Linux. This post list most common iptables solutions required
+    by a new Linux user to secure his or her Linux operating system from intruders.<br> <span
+            id="more-8353"></span></p>
+
+<div style="float:right;margin-top:0px;margin-left:5px;"><a
+        href="http://www.cyberciti.biz/tips/category/linux" title="See all GNU/Linux related tips/articles"><img
+        src="http://files.cyberciti.biz/cbzcache/3rdparty/linux-logo.png" border="0"></a></div>
+<h2>IPTABLES Rules Example</h2>
+<ul>
+    <li>Most of the actions listed in this post are written with the assumption that they will be executed
+        by the root user running the bash or any other modern shell. Do not type commands on remote system
+        as it will disconnect your access.
+    </li>
+    <li>For demonstration purpose I've used RHEL 6.x, but the following command should work with any modern
+        Linux distro.
+    </li>
+    <li>This is NOT a tutorial on how to set iptables. See <a
+            href="http://www.cyberciti.biz/faq/rhel-fedorta-linux-iptables-firewall-configuration-tutorial/">tutorial
+        here</a>. It is a quick cheat sheet to common iptables commands.
+    </li>
+</ul>
+<h2>#1: Displaying the Status of Your Firewall</h2>
+
+<p>Type the following command as root:<br> <code># iptables -L -n -v</code><br> Sample outputs:</p><pre>Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
 	 pkts bytes target     prot opt in     out     source               destination
 	Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
 	 pkts bytes target     prot opt in     out     source               destination
 	Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
 	 pkts bytes target     prot opt in     out     source               destination
-	</pre><p>Above output indicates that the firewall is not active. The following sample shows an active firewall:<br> <code># iptables -L -n -v</code><br> Sample outputs:</p><pre>Chain INPUT (policy DROP 0 packets, 0 bytes)
+	</pre>
+<p>Above output indicates that the firewall is not active. The following sample shows an active
+    firewall:<br> <code># iptables -L -n -v</code><br> Sample outputs:</p><pre>Chain INPUT (policy DROP 0 packets, 0 bytes)
 	 pkts bytes target     prot opt in     out     source               destination
 	    0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0           state INVALID
 	  394 43586 ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED
@@ -34,7 +84,21 @@
 	 pkts bytes target     prot opt in     out     source               destination
 	Chain wanout (1 references)
 	 pkts bytes target     prot opt in     out     source               destination
-	</pre><p>Where,</p><ul><li><strong>-L</strong> : List rules.</li><li><strong>-v</strong> : Display detailed information. This option makes the list command show the interface name, the rule options, and the TOS masks.  The packet  and  byte  counters  are also listed, with the suffix 'K', 'M' or 'G' for 1000, 1,000,000 and 1,000,000,000 multipliers respectively.</li><li><strong>-n</strong> : Display IP address and port in numeric format. Do not use DNS to resolve names. This will speed up listing.</li></ul><h3>#1.1: To inspect firewall with line numbers, enter:</h3><p><code># iptables -n -L -v --line-numbers</code><br> Sample outputs:</p><pre>Chain INPUT (policy DROP)
+	</pre>
+<p>Where,</p>
+<ul>
+    <li><strong>-L</strong> : List rules.</li>
+    <li><strong>-v</strong> : Display detailed information. This option makes the list command show the
+        interface name, the rule options, and the TOS masks. The packet and byte counters are also listed,
+        with the suffix 'K', 'M' or 'G' for 1000, 1,000,000 and 1,000,000,000 multipliers respectively.
+    </li>
+    <li><strong>-n</strong> : Display IP address and port in numeric format. Do not use DNS to resolve
+        names. This will speed up listing.
+    </li>
+</ul>
+<h3>#1.1: To inspect firewall with line numbers, enter:</h3>
+
+<p><code># iptables -n -L -v --line-numbers</code><br> Sample outputs:</p><pre>Chain INPUT (policy DROP)
 	num  target     prot opt source               destination
 	1    DROP       all  --  0.0.0.0/0            0.0.0.0/0           state INVALID
 	2    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED
@@ -55,65 +119,330 @@
 	num  target     prot opt source               destination
 	Chain wanout (1 references)
 	num  target     prot opt source               destination
-	</pre><p>You can use line numbers to delete or insert new rules into the firewall.</p><h3>#1.2: To display INPUT or OUTPUT chain rules, enter:</h3><p><code># iptables -L INPUT -n -v<br> # iptables -L OUTPUT -n -v --line-numbers</code></p><h2>#2: Stop / Start / Restart the Firewall</h2><p>If you are using CentOS / RHEL / Fedora Linux, enter:<br> <code># service iptables stop<br> # service iptables start<br> # service iptables restart</code><br> You can use the iptables command itself to stop the firewall and delete all rules:<br> <code># iptables -F<br> # iptables -X<br> # iptables -t nat -F<br> # iptables -t nat -X<br> # iptables -t mangle -F<br> # iptables -t mangle -X<br> # iptables -P INPUT ACCEPT<br> # iptables -P OUTPUT ACCEPT<br> # iptables -P FORWARD ACCEPT</code><br> Where,</p><ul><li><strong>-F</strong> : Deleting (flushing) all the rules.</li><li><strong>-X</strong> : Delete chain.</li><li><strong>-t table_name</strong> : Select table (called nat or mangle) and delete/flush rules.</li><li><strong>-P</strong> : Set the default policy (such as DROP, REJECT, or ACCEPT).</li></ul><h2>#3: Delete Firewall Rules</h2><p>To display line number along with other information for existing rules, enter:<br> <code># iptables -L INPUT -n --line-numbers<br> # iptables -L OUTPUT -n --line-numbers<br> # iptables -L OUTPUT -n --line-numbers | less<br> # iptables -L OUTPUT -n --line-numbers | grep 202.54.1.1</code><br> You will get the list of IP. Look at the number on the left, then use number to delete it. For example delete line number 4, enter:<br> <code># iptables -D INPUT 4</code><br> OR find source IP 202.54.1.1 and delete from rule:<br> <code># iptables -D INPUT -s 202.54.1.1 -j DROP</code><br> Where,</p><ul><li><strong>-D </strong>: Delete one or more rules from the selected chain</li></ul><h2>#4: Insert Firewall Rules</h2><p>To insert one or more rules in the selected chain as the given rule number use the following syntax. First find out line numbers, enter:<br> # iptables -L INPUT -n --line-numbers<br> Sample outputs:</p><pre>Chain INPUT (policy DROP)
+	</pre>
+<p>You can use line numbers to delete or insert new rules into the firewall.</p>
+
+<h3>#1.2: To display INPUT or OUTPUT chain rules, enter:</h3>
+
+<p><code># iptables -L INPUT -n -v<br> # iptables -L OUTPUT -n -v --line-numbers</code></p>
+
+<h2>#2: Stop / Start / Restart the Firewall</h2>
+
+<p>If you are using CentOS / RHEL / Fedora Linux, enter:<br> <code># service iptables stop<br> # service
+    iptables start<br> # service iptables restart</code><br> You can use the iptables command itself to stop
+    the firewall and delete all rules:<br> <code># iptables -F<br> # iptables -X<br> # iptables -t nat
+        -F<br> # iptables -t nat -X<br> # iptables -t mangle -F<br> # iptables -t mangle -X<br> # iptables
+        -P INPUT ACCEPT<br> # iptables -P OUTPUT ACCEPT<br> # iptables -P FORWARD ACCEPT</code><br> Where,
+</p>
+<ul>
+    <li><strong>-F</strong> : Deleting (flushing) all the rules.</li>
+    <li><strong>-X</strong> : Delete chain.</li>
+    <li><strong>-t table_name</strong> : Select table (called nat or mangle) and delete/flush rules.</li>
+    <li><strong>-P</strong> : Set the default policy (such as DROP, REJECT, or ACCEPT).</li>
+</ul>
+<h2>#3: Delete Firewall Rules</h2>
+
+<p>To display line number along with other information for existing rules, enter:<br> <code># iptables -L
+    INPUT -n --line-numbers<br> # iptables -L OUTPUT -n --line-numbers<br> # iptables -L OUTPUT -n
+    --line-numbers | less<br> # iptables -L OUTPUT -n --line-numbers | grep 202.54.1.1</code><br> You will
+    get the list of IP. Look at the number on the left, then use number to delete it. For example delete
+    line number 4, enter:<br> <code># iptables -D INPUT 4</code><br> OR find source IP 202.54.1.1 and delete
+    from rule:<br> <code># iptables -D INPUT -s 202.54.1.1 -j DROP</code><br> Where,</p>
+<ul>
+    <li><strong>-D </strong>: Delete one or more rules from the selected chain</li>
+</ul>
+<h2>#4: Insert Firewall Rules</h2>
+
+<p>To insert one or more rules in the selected chain as the given rule number use the following syntax.
+    First find out line numbers, enter:<br> # iptables -L INPUT -n --line-numbers<br> Sample outputs:</p><pre>Chain INPUT (policy DROP)
 	num  target     prot opt source               destination
 	1    DROP       all  --  202.54.1.1           0.0.0.0/0
-	2    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state NEW,ESTABLISHED </pre><p>To insert rule between 1 and 2, enter:<br> <code># iptables -I INPUT 2 -s 202.54.1.2 -j DROP</code><br> To view updated rules, enter:<br> <code># iptables -L INPUT -n --line-numbers</code><br> Sample outputs:</p><pre>Chain INPUT (policy DROP)
+	2    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state NEW,ESTABLISHED </pre>
+<p>To insert rule between 1 and 2, enter:<br> <code># iptables -I INPUT 2 -s 202.54.1.2 -j DROP</code><br>
+    To view updated rules, enter:<br> <code># iptables -L INPUT -n --line-numbers</code><br> Sample outputs:
+</p><pre>Chain INPUT (policy DROP)
 	num  target     prot opt source               destination
 	1    DROP       all  --  202.54.1.1           0.0.0.0/0
 	2    DROP       all  --  202.54.1.2           0.0.0.0/0
-	3    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state NEW,ESTABLISHED</pre><h2>#5: Save Firewall Rules</h2><p>To save firewall rules under CentOS / RHEL / Fedora Linux, enter:<br> <code># service iptables save</code><br> In this example, drop an IP and save firewall rules:<br> <code># iptables -A INPUT -s 202.5.4.1 -j DROP<br> # service iptables save</code><br> For all other distros use the iptables-save command:<br> <code># iptables-save &gt; /root/my.active.firewall.rules<br> # cat /root/my.active.firewall.rules</code></p><h2>#6: Restore Firewall Rules</h2><p>To restore firewall rules form a file called /root/my.active.firewall.rules, enter:<br> <code># iptables-restore &lt; /root/my.active.firewall.rules</code><br> To restore firewall rules under CentOS / RHEL / Fedora Linux, enter:<br> <code># service iptables restart</code></p><h2>#7: Set the Default Firewall Policies</h2><p>To drop all traffic:<br> <code># iptables -P INPUT DROP<br> # iptables -P OUTPUT DROP<br> # iptables -P FORWARD DROP<br> # iptables -L -v -n<br> #### you will not able to connect anywhere as all traffic is dropped ###<br> # ping cyberciti.biz<br> # wget http://www.kernel.org/pub/linux/kernel/v3.0/testing/linux-3.2-rc5.tar.bz2</code></p><h3>#7.1: Only Block Incoming Traffic</h3><p>To drop all incoming / forwarded packets, but allow outgoing traffic, enter:<br> <code># iptables -P INPUT DROP<br> # iptables -P FORWARD DROP<br> # iptables -P OUTPUT ACCEPT<br> # iptables -A INPUT -m state --state NEW,ESTABLISHED -j ACCEPT<br> # iptables -L -v -n<br> ### *** now ping and wget should work *** ###<br> # ping cyberciti.biz<br> # wget http://www.kernel.org/pub/linux/kernel/v3.0/testing/linux-3.2-rc5.tar.bz2</code></p><h2>#8:Drop Private Network Address On Public Interface</h2><p>IP spoofing is nothing but to stop the following IPv4 address ranges for private networks on your public interfaces. Packets with non-routable source addresses should be rejected using the following syntax:<br> <code># iptables -A INPUT -i eth1 -s 192.168.0.0/24 -j DROP<br> # iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j DROP</code></p><h3>#8.1: IPv4 Address Ranges For Private Networks (make sure you block them on public interface)</h3><ul><li>10.0.0.0/8 -j (A)</li><li>172.16.0.0/12 (B)</li><li>192.168.0.0/16 (C)</li><li>224.0.0.0/4 (MULTICAST D)</li><li>240.0.0.0/5 (E)</li><li>127.0.0.0/8 (LOOPBACK)</li></ul><h2>#9: Blocking an IP Address (BLOCK IP)</h2><p>To block an attackers ip address called 1.2.3.4, enter:<br> <code># iptables -A INPUT -s 1.2.3.4 -j DROP<br> # iptables -A INPUT -s 192.168.0.0/24 -j DROP</code></p><h2>#10: Block Incoming Port Requests (BLOCK PORT)</h2><p>To block all service requests on port 80, enter:<br> <code># iptables -A INPUT -p tcp --dport 80 -j DROP<br> # iptables -A INPUT -i eth1 -p tcp --dport 80 -j DROP</code></p><p>To block port 80 only for an ip address 1.2.3.4, enter:<br> <code># iptables -A INPUT -p tcp -s 1.2.3.4 --dport 80 -j DROP<br> # iptables -A INPUT -i eth1 -p tcp -s 192.168.1.0/24 --dport 80 -j DROP</code></p><h2>#11: Block Outgoing IP Address</h2><p>To block outgoing traffic to a particular host or domain such as cyberciti.biz, enter:<br> <code># host -t a cyberciti.biz</code><br> Sample outputs:</p><pre>cyberciti.biz has address 75.126.153.206</pre><p>Note down its ip address and type the following to block all outgoing traffic to 75.126.153.206:<br> <code># iptables -A OUTPUT -d 75.126.153.206 -j DROP</code><br> You can use a subnet as follows:<br> <code># iptables -A OUTPUT -d 192.168.1.0/24 -j DROP<br> # iptables -A OUTPUT -o eth1 -d 192.168.1.0/24 -j DROP</code></p><h3>#11.1: Example - Block Facebook.com Domain</h3><p>First, find out all ip address of facebook.com, enter:<br> <code># host -t a www.facebook.com</code><br> Sample outputs:</p><pre>www.facebook.com has address 69.171.228.40</pre><p>Find CIDR for 69.171.228.40, enter:<br> <code># whois 69.171.228.40 | grep CIDR</code><br> Sample outputs:</p><pre>CIDR:           69.171.224.0/19</pre><p>To prevent outgoing access to www.facebook.com, enter:<br> <code># iptables -A OUTPUT -p tcp -d 69.171.224.0/19 -j DROP</code><br> You can also use domain name, enter:<br> <code># iptables -A OUTPUT -p tcp -d www.facebook.com -j DROP<br> # iptables -A OUTPUT -p tcp -d facebook.com -j DROP</code></p><p>From the iptables man page:</p><blockquote><p>... specifying any name to be resolved with a remote query such as DNS (e.g., facebook.com is a really bad idea), a network IP address (with /mask),  or  a  plain  IP address ...</p></blockquote><h2>#12: Log and Drop Packets</h2><p>Type the following to log and block IP spoofing on public interface called eth1<br> <code># iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j LOG --log-prefix "IP_SPOOF A: "<br> # iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j DROP</code><br> By default everything is logged to /var/log/messages file.<br> <code># tail -f /var/log/messages<br> # grep --color  'IP SPOOF' /var/log/messages</code></p><h2>#13: Log and Drop Packets with Limited Number of Log Entries</h2><p>The -m limit module can limit the number of log entries created per time. This is used to prevent flooding your log file. To log and drop spoofing per 5 minutes, in bursts of at most 7 entries .<br> <code># iptables -A INPUT -i eth1 -s 10.0.0.0/8 -m limit --limit 5/m --limit-burst 7 -j LOG --log-prefix "IP_SPOOF A: "<br> # iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j DROP</code></p><h2>#14: Drop or Accept Traffic From Mac Address</h2><p>Use the following syntax:<br> <code># iptables -A INPUT -m mac --mac-source 00:0F:EA:91:04:08 -j DROP<br> ## *only accept traffic for TCP port # 8080 from mac 00:0F:EA:91:04:07 * ##<br> # iptables -A INPUT -p tcp --destination-port 22 -m mac --mac-source 00:0F:EA:91:04:07 -j ACCEPT</code></p><h2>#15: Block or Allow ICMP Ping Request</h2><p>Type the following command to block ICMP ping requests:<br> <code># iptables -A INPUT -p icmp --icmp-type echo-request -j DROP<br> # iptables -A INPUT -i eth1 -p icmp --icmp-type echo-request -j DROP</code><br> Ping responses can also be limited to certain networks or hosts:<br> <code># iptables -A INPUT -s 192.168.1.0/24 -p icmp --icmp-type echo-request -j ACCEPT</code><br> The following only accepts limited type of ICMP requests:<br> <code>### ** assumed that default INPUT policy set to DROP ** #############<br> iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT<br> iptables -A INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT<br> iptables -A INPUT -p icmp --icmp-type time-exceeded -j ACCEPT<br> ## ** all our server to respond to pings ** ##<br> iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT</code></p><h2>#16: Open Range of Ports</h2><p>Use the following syntax to open a range of ports:<br> <code>iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 7000:7010 -j ACCEPT </code></p><h2>#17: Open Range of IP Addresses</h2><p>Use the following syntax to open a range of IP address:<br> <code> ## only accept connection to tcp port 80 (Apache) if ip is between 192.168.1.100 and 192.168.1.200 ##<br> iptables -A INPUT -p tcp --destination-port 80 -m iprange --src-range 192.168.1.100-192.168.1.200 -j ACCEPT</code></p><p><code>## nat example ##<br> iptables -t nat -A POSTROUTING -j SNAT --to-source 192.168.1.20-192.168.1.25<br> </code></p><h2>#18: Established Connections and Restaring The Firewall</h2><p>When you restart the iptables service it will drop established connections as it unload modules from the system under RHEL / Fedora / CentOS Linux. Edit, /etc/sysconfig/iptables-config and set IPTABLES_MODULES_UNLOAD as follows:</p><pre>IPTABLES_MODULES_UNLOAD = no</pre><h2>#19: Help Iptables Flooding My Server Screen</h2><p>Use the crit log level to send messages to a log file instead of console:<br> <code>iptables -A INPUT -s 1.2.3.4 -p tcp --destination-port 80 -j LOG --log-level crit</code></p><h2>#20: Block or Open Common Ports</h2><p>The following shows syntax for opening and closing common TCP and UDP ports:</p><pre class="bash">&nbsp;
+	3    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state NEW,ESTABLISHED</pre>
+<h2>#5: Save Firewall Rules</h2>
+
+<p>To save firewall rules under CentOS / RHEL / Fedora Linux, enter:<br> <code># service iptables
+    save</code><br> In this example, drop an IP and save firewall rules:<br> <code># iptables -A INPUT -s
+    202.5.4.1 -j DROP<br> # service iptables save</code><br> For all other distros use the iptables-save
+    command:<br> <code># iptables-save &gt; /root/my.active.firewall.rules<br> # cat
+        /root/my.active.firewall.rules</code></p>
+
+<h2>#6: Restore Firewall Rules</h2>
+
+<p>To restore firewall rules form a file called /root/my.active.firewall.rules, enter:<br> <code>#
+    iptables-restore &lt; /root/my.active.firewall.rules</code><br> To restore firewall rules under CentOS /
+    RHEL / Fedora Linux, enter:<br> <code># service iptables restart</code></p>
+
+<h2>#7: Set the Default Firewall Policies</h2>
+
+<p>To drop all traffic:<br> <code># iptables -P INPUT DROP<br> # iptables -P OUTPUT DROP<br> # iptables -P
+    FORWARD DROP<br> # iptables -L -v -n<br> #### you will not able to connect anywhere as all traffic is
+    dropped ###<br> # ping cyberciti.biz<br> # wget
+    http://www.kernel.org/pub/linux/kernel/v3.0/testing/linux-3.2-rc5.tar.bz2</code></p>
+
+<h3>#7.1: Only Block Incoming Traffic</h3>
+
+<p>To drop all incoming / forwarded packets, but allow outgoing traffic, enter:<br> <code># iptables -P
+    INPUT DROP<br> # iptables -P FORWARD DROP<br> # iptables -P OUTPUT ACCEPT<br> # iptables -A INPUT -m
+    state --state NEW,ESTABLISHED -j ACCEPT<br> # iptables -L -v -n<br> ### *** now ping and wget should
+    work *** ###<br> # ping cyberciti.biz<br> # wget
+    http://www.kernel.org/pub/linux/kernel/v3.0/testing/linux-3.2-rc5.tar.bz2</code></p>
+
+<h2>#8:Drop Private Network Address On Public Interface</h2>
+
+<p>IP spoofing is nothing but to stop the following IPv4 address ranges for private networks on your public
+    interfaces. Packets with non-routable source addresses should be rejected using the following
+    syntax:<br> <code># iptables -A INPUT -i eth1 -s 192.168.0.0/24 -j DROP<br> # iptables -A INPUT -i eth1
+        -s 10.0.0.0/8 -j DROP</code></p>
+
+<h3>#8.1: IPv4 Address Ranges For Private Networks (make sure you block them on public interface)</h3>
+<ul>
+    <li>10.0.0.0/8 -j (A)</li>
+    <li>172.16.0.0/12 (B)</li>
+    <li>192.168.0.0/16 (C)</li>
+    <li>224.0.0.0/4 (MULTICAST D)</li>
+    <li>240.0.0.0/5 (E)</li>
+    <li>127.0.0.0/8 (LOOPBACK)</li>
+</ul>
+<h2>#9: Blocking an IP Address (BLOCK IP)</h2>
+
+<p>To block an attackers ip address called 1.2.3.4, enter:<br> <code># iptables -A INPUT -s 1.2.3.4 -j
+    DROP<br> # iptables -A INPUT -s 192.168.0.0/24 -j DROP</code></p>
+
+<h2>#10: Block Incoming Port Requests (BLOCK PORT)</h2>
+
+<p>To block all service requests on port 80, enter:<br> <code># iptables -A INPUT -p tcp --dport 80 -j
+    DROP<br> # iptables -A INPUT -i eth1 -p tcp --dport 80 -j DROP</code></p>
+
+<p>To block port 80 only for an ip address 1.2.3.4, enter:<br> <code># iptables -A INPUT -p tcp -s 1.2.3.4
+    --dport 80 -j DROP<br> # iptables -A INPUT -i eth1 -p tcp -s 192.168.1.0/24 --dport 80 -j DROP</code>
+</p>
+
+<h2>#11: Block Outgoing IP Address</h2>
+
+<p>To block outgoing traffic to a particular host or domain such as cyberciti.biz, enter:<br> <code># host
+    -t a cyberciti.biz</code><br> Sample outputs:</p>
+<pre>cyberciti.biz has address 75.126.153.206</pre>
+<p>Note down its ip address and type the following to block all outgoing traffic to 75.126.153.206:<br>
+    <code># iptables -A OUTPUT -d 75.126.153.206 -j DROP</code><br> You can use a subnet as follows:<br>
+    <code># iptables -A OUTPUT -d 192.168.1.0/24 -j DROP<br> # iptables -A OUTPUT -o eth1 -d 192.168.1.0/24
+        -j DROP</code></p>
+
+<h3>#11.1: Example - Block Facebook.com Domain</h3>
+
+<p>First, find out all ip address of facebook.com, enter:<br> <code># host -t a www.facebook.com</code><br>
+    Sample outputs:</p>
+<pre>www.facebook.com has address 69.171.228.40</pre>
+<p>Find CIDR for 69.171.228.40, enter:<br> <code># whois 69.171.228.40 | grep CIDR</code><br> Sample
+    outputs:</p>
+<pre>CIDR:           69.171.224.0/19</pre>
+<p>To prevent outgoing access to www.facebook.com, enter:<br> <code># iptables -A OUTPUT -p tcp -d
+    69.171.224.0/19 -j DROP</code><br> You can also use domain name, enter:<br> <code># iptables -A OUTPUT
+    -p tcp -d www.facebook.com -j DROP<br> # iptables -A OUTPUT -p tcp -d facebook.com -j DROP</code></p>
+
+<p>From the iptables man page:</p>
+<blockquote><p>... specifying any name to be resolved with a remote query such as DNS (e.g., facebook.com is
+    a really bad idea), a network IP address (with /mask), or a plain IP address ...</p></blockquote>
+<h2>#12: Log and Drop Packets</h2>
+
+<p>Type the following to log and block IP spoofing on public interface called eth1<br> <code># iptables -A
+    INPUT -i eth1 -s 10.0.0.0/8 -j LOG --log-prefix "IP_SPOOF A: "<br> # iptables -A INPUT -i eth1 -s
+    10.0.0.0/8 -j DROP</code><br> By default everything is logged to /var/log/messages file.<br> <code>#
+    tail -f /var/log/messages<br> # grep --color 'IP SPOOF' /var/log/messages</code></p>
+
+<h2>#13: Log and Drop Packets with Limited Number of Log Entries</h2>
+
+<p>The -m limit module can limit the number of log entries created per time. This is used to prevent
+    flooding your log file. To log and drop spoofing per 5 minutes, in bursts of at most 7 entries .<br>
+    <code># iptables -A INPUT -i eth1 -s 10.0.0.0/8 -m limit --limit 5/m --limit-burst 7 -j LOG --log-prefix
+        "IP_SPOOF A: "<br> # iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j DROP</code></p>
+
+<h2>#14: Drop or Accept Traffic From Mac Address</h2>
+
+<p>Use the following syntax:<br> <code># iptables -A INPUT -m mac --mac-source 00:0F:EA:91:04:08 -j DROP<br>
+    ## *only accept traffic for TCP port # 8080 from mac 00:0F:EA:91:04:07 * ##<br> # iptables -A INPUT -p
+    tcp --destination-port 22 -m mac --mac-source 00:0F:EA:91:04:07 -j ACCEPT</code></p>
+
+<h2>#15: Block or Allow ICMP Ping Request</h2>
+
+<p>Type the following command to block ICMP ping requests:<br> <code># iptables -A INPUT -p icmp --icmp-type
+    echo-request -j DROP<br> # iptables -A INPUT -i eth1 -p icmp --icmp-type echo-request -j DROP</code><br>
+    Ping responses can also be limited to certain networks or hosts:<br> <code># iptables -A INPUT -s
+        192.168.1.0/24 -p icmp --icmp-type echo-request -j ACCEPT</code><br> The following only accepts
+    limited type of ICMP requests:<br> <code>### ** assumed that default INPUT policy set to DROP **
+        #############<br> iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT<br> iptables -A INPUT
+        -p icmp --icmp-type destination-unreachable -j ACCEPT<br> iptables -A INPUT -p icmp --icmp-type
+        time-exceeded -j ACCEPT<br> ## ** all our server to respond to pings ** ##<br> iptables -A INPUT -p
+        icmp --icmp-type echo-request -j ACCEPT</code></p>
+
+<h2>#16: Open Range of Ports</h2>
+
+<p>Use the following syntax to open a range of ports:<br> <code>iptables -A INPUT -m state --state NEW -m
+    tcp -p tcp --dport 7000:7010 -j ACCEPT </code></p>
+
+<h2>#17: Open Range of IP Addresses</h2>
+
+<p>Use the following syntax to open a range of IP address:<br> <code> ## only accept connection to tcp port
+    80 (Apache) if ip is between 192.168.1.100 and 192.168.1.200 ##<br> iptables -A INPUT -p tcp
+    --destination-port 80 -m iprange --src-range 192.168.1.100-192.168.1.200 -j ACCEPT</code></p>
+
+<p><code>## nat example ##<br> iptables -t nat -A POSTROUTING -j SNAT --to-source
+    192.168.1.20-192.168.1.25<br> </code></p>
+
+<h2>#18: Established Connections and Restaring The Firewall</h2>
+
+<p>When you restart the iptables service it will drop established connections as it unload modules from the
+    system under RHEL / Fedora / CentOS Linux. Edit, /etc/sysconfig/iptables-config and set
+    IPTABLES_MODULES_UNLOAD as follows:</p>
+<pre>IPTABLES_MODULES_UNLOAD = no</pre>
+<h2>#19: Help Iptables Flooding My Server Screen</h2>
+
+<p>Use the crit log level to send messages to a log file instead of console:<br> <code>iptables -A INPUT -s
+    1.2.3.4 -p tcp --destination-port 80 -j LOG --log-level crit</code></p>
+
+<h2>#20: Block or Open Common Ports</h2>
+
+<p>The following shows syntax for opening and closing common TCP and UDP ports:</p><pre class="bash">&nbsp;
 	Replace ACCEPT with DROP to block port:
-	<span style="color: #808080; font-style: italic;">## open port <span style="color: #c20cb9; font-weight: bold;">ssh</span> tcp port <span style="color: #000000;">22</span> ##</span>
+	<span style="color: #808080; font-style: italic;">## open port <span
+            style="color: #c20cb9; font-weight: bold;">ssh</span> tcp port <span
+            style="color: #000000;">22</span> ##</span>
 	iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport <span style="color: #000000;">22</span> -j ACCEPT
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">22</span> -j ACCEPT
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">22</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open cups <span style="color: #7a0874; font-weight: bold;">(</span>printing service<span style="color: #7a0874; font-weight: bold;">)</span> udp/tcp port <span style="color: #000000;">631</span> <span style="color: #000000; font-weight: bold;">for</span> LAN <span style="color: #c20cb9; font-weight: bold;">users</span> ##</span>
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -p udp -m udp --dport <span style="color: #000000;">631</span> -j ACCEPT
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -p tcp -m tcp --dport <span style="color: #000000;">631</span> -j ACCEPT
+	<span style="color: #808080; font-style: italic;">## open cups <span
+            style="color: #7a0874; font-weight: bold;">(</span>printing service<span
+            style="color: #7a0874; font-weight: bold;">)</span> udp/tcp port <span
+            style="color: #000000;">631</span> <span style="color: #000000; font-weight: bold;">for</span> LAN <span
+            style="color: #c20cb9; font-weight: bold;">users</span> ##</span>
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span
+            style="color: #000000;">24</span> -p udp -m udp --dport <span style="color: #000000;">631</span> -j ACCEPT
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span
+            style="color: #000000;">24</span> -p tcp -m tcp --dport <span style="color: #000000;">631</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## allow <span style="color: #000000; font-weight: bold;">time</span> <span style="color: #c20cb9; font-weight: bold;">sync</span> via NTP <span style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> <span style="color: #7a0874; font-weight: bold;">(</span>open udp port <span style="color: #000000;">123</span><span style="color: #7a0874; font-weight: bold;">)</span> ##</span>
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p udp --dport <span style="color: #000000;">123</span> -j ACCEPT
+	<span style="color: #808080; font-style: italic;">## allow <span
+            style="color: #000000; font-weight: bold;">time</span> <span
+            style="color: #c20cb9; font-weight: bold;">sync</span> via NTP <span
+            style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> <span
+            style="color: #7a0874; font-weight: bold;">(</span>open udp port <span
+            style="color: #000000;">123</span><span style="color: #7a0874; font-weight: bold;">)</span> ##</span>
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p udp --dport <span
+            style="color: #000000;">123</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">25</span> <span style="color: #7a0874; font-weight: bold;">(</span>smtp<span style="color: #7a0874; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">for</span> all ##</span>
+	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">25</span> <span
+            style="color: #7a0874; font-weight: bold;">(</span>smtp<span
+            style="color: #7a0874; font-weight: bold;">)</span> <span
+            style="color: #000000; font-weight: bold;">for</span> all ##</span>
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">25</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;"># open dns server ports <span style="color: #000000; font-weight: bold;">for</span> all ##</span>
+	<span style="color: #808080; font-style: italic;"># open dns server ports <span
+            style="color: #000000; font-weight: bold;">for</span> all ##</span>
 	iptables -A INPUT -m state --state NEW -p udp --dport <span style="color: #000000;">53</span> -j ACCEPT
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">53</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open http/https <span style="color: #7a0874; font-weight: bold;">(</span>Apache<span style="color: #7a0874; font-weight: bold;">)</span> server port to all ##</span>
+	<span style="color: #808080; font-style: italic;">## open http/https <span
+            style="color: #7a0874; font-weight: bold;">(</span>Apache<span
+            style="color: #7a0874; font-weight: bold;">)</span> server port to all ##</span>
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">80</span> -j ACCEPT
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">443</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">110</span> <span style="color: #7a0874; font-weight: bold;">(</span>pop3<span style="color: #7a0874; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">for</span> all ##</span>
+	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">110</span> <span
+            style="color: #7a0874; font-weight: bold;">(</span>pop3<span
+            style="color: #7a0874; font-weight: bold;">)</span> <span
+            style="color: #000000; font-weight: bold;">for</span> all ##</span>
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">110</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">143</span> <span style="color: #7a0874; font-weight: bold;">(</span>imap<span style="color: #7a0874; font-weight: bold;">)</span> <span style="color: #000000; font-weight: bold;">for</span> all ##</span>
+	<span style="color: #808080; font-style: italic;">## open tcp port <span style="color: #000000;">143</span> <span
+            style="color: #7a0874; font-weight: bold;">(</span>imap<span
+            style="color: #7a0874; font-weight: bold;">)</span> <span
+            style="color: #000000; font-weight: bold;">for</span> all ##</span>
 	iptables -A INPUT -m state --state NEW -p tcp --dport <span style="color: #000000;">143</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open access to Samba <span style="color: #c20cb9; font-weight: bold;">file</span> server <span style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">137</span> -j ACCEPT
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">138</span> -j ACCEPT
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">139</span> -j ACCEPT
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">445</span> -j ACCEPT
+	<span style="color: #808080; font-style: italic;">## open access to Samba <span
+            style="color: #c20cb9; font-weight: bold;">file</span> server <span
+            style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">137</span> -j ACCEPT
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">138</span> -j ACCEPT
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">139</span> -j ACCEPT
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">445</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open access to proxy server <span style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
-	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span style="color: #000000;">3128</span> -j ACCEPT
+	<span style="color: #808080; font-style: italic;">## open access to proxy server <span
+            style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
+	iptables -A INPUT -s <span style="color: #000000;">192.168</span><span style="color: #000000;">.1</span><span
+            style="color: #000000;">.0</span>/<span style="color: #000000;">24</span> -m state --state NEW -p tcp --dport <span
+            style="color: #000000;">3128</span> -j ACCEPT
 	&nbsp;
-	<span style="color: #808080; font-style: italic;">## open access to mysql server <span style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
+	<span style="color: #808080; font-style: italic;">## open access to mysql server <span
+            style="color: #000000; font-weight: bold;">for</span> lan <span style="color: #c20cb9; font-weight: bold;">users</span> only ##</span>
 	iptables -I INPUT -p tcp --dport <span style="color: #000000;">3306</span> -j ACCEPT
-	&nbsp;</pre><h2>#21: Restrict the Number of Parallel Connections To a Server Per Client IP</h2><p>You can use connlimit module to put such restrictions. To allow 3 ssh connections per client host, enter:<br> <code># iptables -A INPUT -p tcp --syn --dport 22 -m connlimit --connlimit-above 3 -j REJECT</code></p><p>Set HTTP requests to 20:<br> <code># iptables -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 --connlimit-mask 24 -j DROP</code><br> Where,</p><ol><li><strong>--connlimit-above 3</strong> : Match if the number of existing connections is above 3.</li><li><strong>--connlimit-mask 24</strong> : Group hosts using the prefix length. For IPv4, this must be a number between (including) 0 and 32.</li></ol><h2>#22: HowTO: Use iptables Like a Pro</h2><p>For more information about iptables, please see the manual page by typing man iptables from the command line:<br> <code>$ man iptables</code><br> You can see the help using the following syntax too:<br> <code># iptables -h</code><br> To see help with specific commands and targets, enter:<br> <code># iptables -j DROP -h</code></p><h3>#22.1: Testing Your Firewall</h3><p>Find out if ports are open or not, enter:<br> <code># netstat -tulpn</code><br> Find out if tcp port 80 open or not, enter:<br> <code># netstat -tulpn | grep :80</code><br> If port 80 is not open, start the Apache, enter:<br> <code># service httpd start</code><br> Make sure iptables allowing access to the port 80:<br> <code># iptables -L INPUT -v -n | grep 80</code><br> Otherwise open port 80 using the iptables for all users:<br> <code># iptables -A INPUT -m state --state NEW -p tcp --dport 80 -j ACCEPT<br> # service iptables save</code><br> Use the telnet command to see if firewall allows to connect to port 80:<br> <code>$ telnet www.cyberciti.biz 80</code><br> Sample outputs:</p><pre>Trying 75.126.153.206...
+	&nbsp;</pre>
+<h2>#21: Restrict the Number of Parallel Connections To a Server Per Client IP</h2>
+
+<p>You can use connlimit module to put such restrictions. To allow 3 ssh connections per client host, enter:<br>
+    <code># iptables -A INPUT -p tcp --syn --dport 22 -m connlimit --connlimit-above 3 -j REJECT</code></p>
+
+<p>Set HTTP requests to 20:<br> <code># iptables -p tcp --syn --dport 80 -m connlimit --connlimit-above 20
+    --connlimit-mask 24 -j DROP</code><br> Where,</p>
+<ol>
+    <li><strong>--connlimit-above 3</strong> : Match if the number of existing connections is above 3.</li>
+    <li><strong>--connlimit-mask 24</strong> : Group hosts using the prefix length. For IPv4, this must be a
+        number between (including) 0 and 32.
+    </li>
+</ol>
+<h2>#22: HowTO: Use iptables Like a Pro</h2>
+
+<p>For more information about iptables, please see the manual page by typing man iptables from the command
+    line:<br> <code>$ man iptables</code><br> You can see the help using the following syntax too:<br>
+    <code># iptables -h</code><br> To see help with specific commands and targets, enter:<br> <code>#
+        iptables -j DROP -h</code></p>
+
+<h3>#22.1: Testing Your Firewall</h3>
+
+<p>Find out if ports are open or not, enter:<br> <code># netstat -tulpn</code><br> Find out if tcp port 80
+    open or not, enter:<br> <code># netstat -tulpn | grep :80</code><br> If port 80 is not open, start the
+    Apache, enter:<br> <code># service httpd start</code><br> Make sure iptables allowing access to the port
+    80:<br> <code># iptables -L INPUT -v -n | grep 80</code><br> Otherwise open port 80 using the iptables
+    for all users:<br> <code># iptables -A INPUT -m state --state NEW -p tcp --dport 80 -j ACCEPT<br> #
+        service iptables save</code><br> Use the telnet command to see if firewall allows to connect to port
+    80:<br> <code>$ telnet www.cyberciti.biz 80</code><br> Sample outputs:</p><pre>Trying 75.126.153.206...
 	Connected to www.cyberciti.biz.
 	Escape character is '^]'.
 	^]
 	telnet&gt; quit
 	Connection closed.
-	</pre><p>You can use nmap to probe your own server using the following syntax:<br> <code>$ nmap -sS -p 80 www.cyberciti.biz</code><br> Sample outputs:</p><pre>Starting Nmap 5.00 ( http://nmap.org ) at 2011-12-13 13:19 IST
+	</pre>
+<p>You can use nmap to probe your own server using the following syntax:<br> <code>$ nmap -sS -p 80
+    www.cyberciti.biz</code><br> Sample outputs:</p><pre>Starting Nmap 5.00 ( http://nmap.org ) at 2011-12-13 13:19 IST
 	Interesting ports on www.cyberciti.biz (75.126.153.206):
 	PORT   STATE SERVICE
 	80/tcp open  http
 	Nmap done: 1 IP address (1 host up) scanned in 1.00 seconds
-	</pre><p>I also recommend you install and use sniffer such as tcpdupm and ngrep to test your firewall settings.</p><h4>Conclusion:</h4><p>This post only list basic rules for new Linux users. You can create and build more complex rules. This requires good understanding of TCP/IP, Linux kernel tuning via sysctl.conf, and good knowledge of your own setup. Stay tuned for next topics:</p><ul><li>Stateful packet inspection.</li><li>Using connection tracking helpers.</li><li>Network address translation.</li><li>Layer 2 filtering.</li><li>Firewall testing tools.</li><li>Dealing with VPNs, DNS, Web, Proxy, and other protocols.</li></ul><ul class="share"><li class="tweeter"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.1366232305.html#_=1367232788538&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fwww.cyberciti.biz%2Ftips%2Flinux-iptables-examples.html&amp;size=m&amp;text=Linux%3A%2020%20Iptables%20Examples%20For%20New%20SysAdmins&amp;url=http%3A%2F%2Fwww.cyberciti.biz%2Ftips%2Flinux-iptables-examples.html&amp;via=nixcraft" class="twitter-share-button twitter-count-horizontal" style="width: 107px; height: 20px;" title="Twitter Tweet Button" data-twttr-rendered="true"></iframe></li><li class="googleplus"><div style="text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background-position: initial initial; background-repeat: initial initial;" id="___plusone_0"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1367232788493" name="I0_1367232788493" src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;hl=en-US&amp;origin=http%3A%2F%2Fwww.cyberciti.biz&amp;url=http%3A%2F%2Fwww.cyberciti.biz%2Ftips%2Flinux-iptables-examples.html&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.kmJHXydkclQ.O%2Fm%3D__features__%2Fam%3DUQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAItRSTPgCtgN_05d8bvEFDdgM3-JACmcdA#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled&amp;id=I0_1367232788493&amp;parent=http%3A%2F%2Fwww.cyberciti.biz&amp;rpctoken=16155118" allowtransparency="true" data-gapiattached="true" title="+1"></iframe></div></li><li class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href=http://www.cyberciti.biz/tips/linux-iptables-examples.html&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowtransparency="true"></iframe></li><li class="stubleupon"><iframe scrolling="no" frameborder="0" allowtransparency="true" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;" src="http://badge.stumbleupon.com/badge/embed/2/?url=http%3A%2F%2Fwww.cyberciti.biz%2Ftips%2Flinux-iptables-examples.html" width="65" height="18" id="iframe-stmblpn-widget-1"></iframe></li><li class="reddit"><a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"><img src="http://s0.cyberciti.org/images/misc/spreddit7.gif" alt="submit to reddit" border="0"></a></li><li class="pdfdl"><a href="http://www.cyberciti.biz/view/pdf/tips/8353.php"><img src="http://s0.cyberciti.org/images/misc/pdfdlv1.jpg" alt="Download this as pdf"></a></li></ul> <br><br><p style="background: #E0ECFC; border-color: #C3D6EF; display: block; overflow: auto; line-height: 1.5em; margin-bottom: 1.833em; padding: 0.667em 0.917em;"> You should follow me on twitter <a href="https://twitter.com/nixcraft">here</a> or grab <a href="http://www.cyberciti.biz/nixcraft-rss-feed-syndication/">rss feed</a> to keep track of new changes.</p><h4>Featured Articles:</h4><ul><li><a href="http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html">30 Handy Bash Shell Aliases For Linux / Unix / Mac OS X</a></li><li><a href="http://www.cyberciti.biz/networking/nmap-command-examples-tutorials/">Top 30 Nmap Command Examples For Sys/Network Admins</a></li><li><a href="http://www.cyberciti.biz/tips/php-security-best-practices-tutorial.html">25 PHP Security Best Practices For Sys Admins</a></li><li><a href="http://www.cyberciti.biz/tips/top-linux-monitoring-tools.html">20 Linux System Monitoring Tools Every SysAdmin Should Know</a></li><li><a href="http://www.cyberciti.biz/tips/linux-security.html">20 Linux Server Hardening Security Tips</a></li><li><a href="http://www.cyberciti.biz/tips/linux-iptables-examples.html">Linux: 20 Iptables Examples For New SysAdmins</a></li><li><a href="http://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html">Top 20 OpenSSH Server Best Security Practices </a></li><li><a href="http://www.cyberciti.biz/tips/linux-unix-bsd-nginx-webserver-security.html">Top 20 Nginx WebServer Best Security Practices</a></li><li><a href="http://www.cyberciti.biz/tips/check-unix-linux-configuration-file-for-syntax-errors.html">20 Examples: Make Sure Unix / Linux Configuration Files Are Free From Syntax Errors</a></li><li><a href="http://www.cyberciti.biz/open-source/best-terminal-applications-for-linux-unix-macosx/">15 Greatest Open Source Terminal Applications Of 2012</a> <img style="verticalp-align: text-top; padding-left: 1px;" src="http://s0.cyberciti.org/static/legacy/i/new_post.png" alt="" border="0"></li><li><a href="http://www.cyberciti.biz/tips/my-10-unix-command-line-mistakes.html">My 10 UNIX Command Line Mistakes</a></li><li><a href="http://www.cyberciti.biz/tips/open-source-project-management-software.html">Top 10 Open Source Web-Based Project Management Software</a></li><li><a href="http://www.cyberciti.biz/tips/download-email-client-for-linux-mac-osx-windows.html">Top 5 Email Client For Linux, Mac OS X, and Windows Users</a></li><li><a href="http://www.cyberciti.biz/tips/linux-laptop.html">The Novice Guide To Buying A Linux Laptop</a></li></ul></div></div>
+	</pre>
+<p>I also recommend you install and use sniffer such as tcpdupm and ngrep to test your firewall
+    settings.</p><h4>Conclusion:</h4>
+
+<p>This post only list basic rules for new Linux users. You can create and build more complex rules.
+</div>
+</div>
+
 </body>
 </html>
