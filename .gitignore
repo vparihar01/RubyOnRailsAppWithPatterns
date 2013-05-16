@@ -5,10 +5,12 @@ capybara-*.html
 .rspec
 /.bundle
 /vendor/bundle
+/config/database.yml
 /log/*
 /tmp/*
 /db/*.sqlite3
 /public/system/*
+/public/uploads/video/*
 /coverage/
 /spec/tmp/*
 **.orig

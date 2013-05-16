@@ -1,0 +1,18 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li><%= link_to "Engineering", videos_path(:category_id => 1) %></li>
+        <li><%= link_to "Operations", videos_path(:category_id => 2) %></li>
+        <li><%= link_to "Enabling", videos_path(:category_id => 3) %></li>
+        <li><%= link_to "Design", videos_path(:category_id => 4) %></li>
+        <% if current_user.present? %>
+            <li><%= link_to "Upload",new_video_path %></li>
+            <li><%= link_to "Logout",destroy_user_session_path,:method => "delete" %></li>
+            <% else %>
+            <li><%= link_to "Admin",new_user_session_path%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

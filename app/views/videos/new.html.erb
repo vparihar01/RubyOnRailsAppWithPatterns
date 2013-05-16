@@ -1,0 +1,38 @@
+<%= form_for @video, :class => "form-horizontal well" do |video|%>
+    <div class="control-group">
+      <label class="control-label" for="optionsCheckbox">Name</label>
+      <div class="controls">
+        <%= video.text_field :name  %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="optionsCheckbox">Description</label>
+      <div class="controls">
+        <%= video.text_field :description  %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="optionsCheckbox">Category</label>
+      <div class="controls">
+        <%= video.collection_select :category_id, Category.all, :id, :name %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="optionsCheckbox">Video</label>
+      <div class="controls">
+        <%= video.file_field :path  %>
+      </div>
+    </div>
+
+    <div class="control-group">
+
+      <div class="controls">
+        <%= video.submit "Submit"  %>
+      </div>
+    </div>
+
+
+<% end %>
