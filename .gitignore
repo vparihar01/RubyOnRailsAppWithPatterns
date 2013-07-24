@@ -21,3 +21,5 @@ pickle-email-*.html
 .idea/workspace.xml
 .idea/misc.xml
 .idea/RubyOnRailsAppWithPatterns.iml
+zeus.json
+custom_plan.rb

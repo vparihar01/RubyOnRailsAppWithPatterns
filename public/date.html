@@ -1,0 +1,45 @@
+<script type="text/javascript">
+
+
+
+      function timeZone(){
+
+          today = new Date()
+          difference = today.getTimezoneOffset()
+
+          var field = document.getElementById("form").timezone
+          alert("test")
+          if(difference < 0){
+              difference = difference * -1
+              field.value =  "GMT+"  + pad(Math.floor(difference/60), 2) + ":" + pad(difference%60, 2);
+          }
+          else{
+              field.value = "GMT-"  + pad(Math.floor(difference/60), 2) + ":" + pad(difference%60, 2);
+          }
+          alert(field.value);
+
+
+      }
+
+      function pad(num, digits) {
+          num = String(num); while (num.length < digits) { num="0"+num; }; return num;
+      }
+
+  </script>
+
+
+
+
+
+
+
+
+
+                  <form method="get" action="ViewLog.do?page=1" id="form">
+                      <input id="timezone" name="timezone" type="hidden" value=""></input>
+                      <img id="activityHistoryImage" Class = "navImage" src="imgs/history.png" alt="Activity history"/>
+
+
+                      <a   href="ViewLog.do?page=1"id ="activityHistoryButton"class = "navButton" onclick="timeZone(); return false;">Activity history</a><br/>
+                      <small class="navSubText">See your most recent activities </small>
+                  </form>
